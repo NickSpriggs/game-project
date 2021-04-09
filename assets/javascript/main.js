@@ -83,24 +83,17 @@ function rotateOrientation(num, orientation) {
     } else if (orientation == "facingUp") {
         document.getElementById("GB" + num).style.transform = 'rotate(-90deg)';
     gameSpaceArray[num].orientation = orientation;
-}
-
-function randomTank() {
-    var num = randomStart();
-
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>'; 
-    gameSpaceArray[num].type = "blueTank";
-
-    //var orientation = getOrientation(num);  
-    //rotateOrientation(num, orientation);
-
-    console.log(gameSpaceArray);
-
     }
 }
 
 function submit() {
     var num = randomStart();
 
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';    
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';   
+    gameSpaceArray[num].type = "blueTank"; 
+
+    var orientation = getOrientation(num);  
+    rotateOrientation(num, orientation);
+    
+    console.log(gameSpaceArray);
 }
