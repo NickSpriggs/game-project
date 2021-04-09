@@ -1,29 +1,30 @@
 const startArray = [2,3,4,5,6,7,8,9,20,30,40,50,60,70,80,90,11,21,31,41,51,61,71,81,92,93,94,95,96,97,98,99];
-const facingLeft = [20,30,40,50,60,70,80,90];
-const facingRight = [11,21,31,41,51,61,71,81];
-const facingUp = [92,93,94,95,96,97,98,99];
-const facingDown = [2,3,4,5,6,7,8,9];
+const goingLeft = [20,30,40,50,60,70,80,90];
+const goingRight = [11,21,31,41,51,61,71,81];
+const goingUp = [92,93,94,95,96,97,98,99];
+const goingDown = [2,3,4,5,6,7,8,9];
 var gameSpaceArray = [];
 
 window.onload = function(){
     var gameSpace = document.getElementById("gameSpace");
 
-    for (i=1; i < 101; i++) {
+    for (i=0; i < 100; i++) {
 
-        var boxDiv = '<div id=' + 'GB' + i + ' class="gameBox"> ' + i + '</div>'; 
+        var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox"> ' + (i + 1) + '</div>'; 
         gameSpace.innerHTML += boxDiv;
 
         boxDivObject = {
             name: "GB" + i, 
             type: "empty",
-            orientation: "none"
+            orientation: "none",
+            destination: "departing"
         };
         this.gameSpaceArray.push(boxDivObject);
 
     }
 };
 
-function randomStart() {
+function randomInt() {
     //random number from either 1-10 / 10s-100 / 91-100 / 1-11-21-31-41...91 to start:
         // [2/3/4/5/6/7/8/9/20/30/40/50/60/70/80/90/11/21/31/41/51/61/71/81/92/93/94/95/96/97/98/99   [1][10[91][100]
     var startNumber;
@@ -47,28 +48,28 @@ function getOrientation(inputNumber) {
     var orientationBoolean = false;
 
     while (orientationBoolean == false) {
-        for (i=0; i <facingLeft.length; i++) {
-            if (inputNumber == facingLeft[i]) {
+        for (i=0; i <goingLeft.length; i++) {
+            if (inputNumber == goingLeft[i]) {
                 orientationBoolean = true;
-                orientation = "facingLeft";
+                orientation = "goingLeft";
             }
         }
-        for (i=0; i <facingDown.length; i++) {
-            if (inputNumber == facingDown[i]) {
+        for (i=0; i <goingDown.length; i++) {
+            if (inputNumber == goingDown[i]) {
                 orientationBoolean = true;
-                orientation = "facingDown";
+                orientation = "goingDown";
             }
         }
-        for (i=0; i <facingUp.length; i++) {
-            if (inputNumber == facingUp[i]) {
+        for (i=0; i <goingUp.length; i++) {
+            if (inputNumber == goingUp[i]) {
                 orientationBoolean = true;
-                orientation = "facingUp";
+                orientation = "goingUp";
             }
         }
-        for (i=0; i <facingRight.length; i++) {
-            if (inputNumber == facingRight[i]) {
+        for (i=0; i <goingRight.length; i++) {
+            if (inputNumber == goingRight[i]) {
                 orientationBoolean = true;
-                orientation = "facingRight";
+                orientation = "goingRight";
             }
         }
     }
@@ -76,24 +77,34 @@ function getOrientation(inputNumber) {
 }
 
 function rotateOrientation(num, orientation) {
-    if (orientation == "facingDown") {
+    if (orientation == "goingDown") {
         document.getElementById("GB" + num).style.transform = 'rotate(90deg)';
-    } else if (orientation == "facingLeft") {
+    } else if (orientation == "goingLeft") {
         document.getElementById("GB" + num).style.transform = 'rotate(180deg)';
-    } else if (orientation == "facingUp") {
+    } else if (orientation == "goingUp") {
         document.getElementById("GB" + num).style.transform = 'rotate(-90deg)';
-    gameSpaceArray[num].orientation = orientation;
     }
+    gameSpaceArray[num].orientation = orientation;
 }
 
-function submit() {
-    var num = randomStart();
-
+function setTank(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';   
     gameSpaceArray[num].type = "blueTank"; 
 
-    var orientation = getOrientation(num);  
+    // setOrientation(num); 
+    var orientation = getOrientation(num); 
     rotateOrientation(num, orientation);
-    
-    console.log(gameSpaceArray);
+
+}
+
+function movingTanks() {
+    var num = randomInt();
+    setTank(num);
+    i = 1;
+
+    if (gameSpaceArray[num].orientation == "goingLeft") {
+        if (gameSpaceArray[num].destination == "departing") {
+            console.log(gameSpaceArray[num]);
+        }
+    }
 }

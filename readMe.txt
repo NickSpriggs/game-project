@@ -19,6 +19,8 @@ window.onload = function(){
     }
 };
 
+
+
 function summonTank(gbId, gbNum) {
     //console.log(gbId);
     gbId.outerHTML = '<div id="GB' + gbNum + '" class="gameBox tankBlue" onclick="destroyTank(GB' + gbNum + ', ' + gbNum + ')"></div>'; 
@@ -64,3 +66,27 @@ function randomTank() {
 
     console.log(gbId);
 }
+
+
+
+facingRight: when on 11 look for 12 then 13 then 14 until 20
+
+facingLeft: when on 30 look for 29 then 28 then 27 until 21
+
+facingDown: when on 2 look for 12 then 22 then 32 until 92
+
+facingUp: when on 98 look for 88 then 78 then 68 until 8
+
+    Remember each number crossed
+
+
+?? if orientation == facingRight && destination != arrive {
+    move 9 jumps (11 actions: 1 creation, 9 steps, and one final action of making it disappear ) -> destination: "arrived"
+        store each jump in variable
+}
+
+    jump {
+        have a spot create a tank for a few seconds, the return to normal, but not before instructing the next one to do the same
+    }
+
+
