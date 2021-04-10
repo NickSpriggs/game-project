@@ -42,3 +42,9 @@ html,body{
     background: url("../images/gameMap.png");
     background-size: auto;
 }
+
+#infoDetails {
+    background-color: white;
+    color: black;
+    width: 200px;
+}

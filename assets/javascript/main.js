@@ -76,7 +76,9 @@ function getOrientation(inputNumber) {
     return orientation;    
 }
 
-function rotateOrientation(num, orientation) {
+function rotateOrientation(num) {
+    var orientation = getOrientation(num); 
+
     if (orientation == "goingDown") {
         document.getElementById("GB" + num).style.transform = 'rotate(90deg)';
     } else if (orientation == "goingLeft") {
@@ -88,32 +90,32 @@ function rotateOrientation(num, orientation) {
 }
 
 function setTank(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';   
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';  
+    rotateOrientation(num); 
     gameSpaceArray[num].boxType = "blueTank"; 
 }
 
 function removeTank(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox"> ' + num + '</div>'; 
-    gameSpaceArray[num].boxType = "empty"; 
+    gameSpaceArray[num].orientation = "none";
 }
 
 function removeAll() {
-    for (i = 1; i < 101; i++) {
+    for (i = 1; i < 100; i++) {
         removeTank(i);
+        gameSpaceArray[i].boxType = "empty"; 
     }
 }
 
 function movingTanks() {
     var num = randomInt();
     setTank(num);
-    var orientation = getOrientation(num); 
-    rotateOrientation(num, orientation);
+}
 
-    if (gameSpaceArray[num].orientation == "goingRight") {
-        setTimeout(function(){
-            removeTank(num); 
-            num++;
-            setTank(num);
-        },1000)
+function info() {
+    var text = "";
+    for (i = 1; i < gameSpaceArray.length; i++) {
+        var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].orientation + "<br>";        
     }
+    document.getElementById("infoDetails").innerHTML = text;
 }
