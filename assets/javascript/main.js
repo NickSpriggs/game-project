@@ -10,8 +10,9 @@ window.onload = function(){
 
     for (i=0; i < 100; i++) {
 
-        //var boxDiv = '<div id="GB1" class="gameBox" onclick="setMine(1)"></div>';
-        var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox")> ' + (i + 1) + '</div>'; 
+        var GBi = i + 1;
+        var boxDiv = '<div id=' + 'GB' + (GBi) + ' class="gameBox" onclick="setMine(' + (GBi) + ')">' + (GBi) + '</div>'; 
+        //var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox">' + (i + 1) + '</div>'; 
         gameSpace.innerHTML += boxDiv;
 
         boxDivObject = {
@@ -96,7 +97,7 @@ function setTank(num, directionString) {
 }
 
 function removeTank(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox"> ' + num + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + num + '</div>'; 
     gameSpaceArray[num].boxType = "empty"; 
 
     gameSpaceArray[num].direction = "none";
@@ -130,7 +131,7 @@ function movingTanks() {
                 clearInterval(timer);
                 removeTank(start);
             }
-        } , 500);
+        } , 300);
     }
 
     if (divElement.direction == "goingLeft") {
@@ -145,7 +146,7 @@ function movingTanks() {
                 clearInterval(timer);
                 removeTank(start);
             }
-        } , 500);
+        } , 300);
     }
     if (divElement.direction == "goingUp") {
         var end = start - 90;
@@ -160,9 +161,9 @@ function movingTanks() {
 
                 setTimeout(function() {
                     removeTank(start);
-                }, 500);    
+                }, 300);    
             }
-        } , 500);   
+        } , 300);   
     }
 
     if (divElement.direction == "goingDown") {
@@ -178,9 +179,9 @@ function movingTanks() {
 
                 setTimeout(function() {
                     removeTank(start);
-                }, 500);    
+                }, 300);    
             }
-        } , 500); 
+        } , 300); 
     }
 }
 
