@@ -197,3 +197,15 @@ function setMine(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + num + '</div>'; 
     gameSpaceArray[num].boxType = "landMine"; 
 }
+
+
+///// Unused Yet //////
+function setExplosion(num) {
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + num + '</div>'; 
+    gameSpaceArray[num].boxType = "explosion";     
+}
+
+function setHole(num) {
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + num + '</div>'; 
+    gameSpaceArray[num].boxType = "hole";         
+}

@@ -33,14 +33,28 @@ html,body{
 
 .tankBlue {
     background-image: url("../images/TankBlue.png");  
-    background-size: contain; 
+    background-size: 90%; 
     background-repeat: no-repeat;  
     background-position: center;
 }
 
 .landMine {
     background-image: url("../images/landMine.png");  
-    background-size: 60%; 
+    background-size: 55%; 
+    background-repeat: no-repeat;  
+    background-position: center;
+}
+
+.explosion {
+    background-image: url("../images/explosion.png");  
+    background-size: 100%; 
+    background-repeat: no-repeat;  
+    background-position: center;
+}
+
+.hole {
+    background-image: url("../images/hole.png");  
+    background-size: 95%; 
     background-repeat: no-repeat;  
     background-position: center;
 }
