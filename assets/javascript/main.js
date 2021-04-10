@@ -15,19 +15,19 @@ window.onload = function(){
 
         boxDivObject = {
             name: "GB" + i, 
-            type: "empty",
+            boxType: "empty",
             orientation: "none",
             destination: "departing"
         };
         this.gameSpaceArray.push(boxDivObject);
-
+        
     }
 };
 
 function randomInt() {
     //random number from either 1-10 / 10s-100 / 91-100 / 1-11-21-31-41...91 to start:
         // [2/3/4/5/6/7/8/9/20/30/40/50/60/70/80/90/11/21/31/41/51/61/71/81/92/93/94/95/96/97/98/99   [1][10[91][100]
-    var startNumber;
+    var startNumber = 0;
     var workingNumberBoolean = false;
 
     while (workingNumberBoolean == false) {
@@ -89,22 +89,31 @@ function rotateOrientation(num, orientation) {
 
 function setTank(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';   
-    gameSpaceArray[num].type = "blueTank"; 
+    gameSpaceArray[num].boxType = "blueTank"; 
+}
 
-    // setOrientation(num); 
-    var orientation = getOrientation(num); 
-    rotateOrientation(num, orientation);
+function removeTank(num) {
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox"> ' + num + '</div>'; 
+    gameSpaceArray[num].boxType = "empty"; 
+}
 
+function removeAll() {
+    for (i = 1; i < 101; i++) {
+        removeTank(i);
+    }
 }
 
 function movingTanks() {
     var num = randomInt();
     setTank(num);
-    i = 1;
+    var orientation = getOrientation(num); 
+    rotateOrientation(num, orientation);
 
-    if (gameSpaceArray[num].orientation == "goingLeft") {
-        if (gameSpaceArray[num].destination == "departing") {
-            console.log(gameSpaceArray[num]);
-        }
+    if (gameSpaceArray[num].orientation == "goingRight") {
+        setTimeout(function(){
+            removeTank(num); 
+            num++;
+            setTank(num);
+        },1000)
     }
 }
