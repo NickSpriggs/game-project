@@ -16,7 +16,7 @@ window.onload = function(){
         boxDivObject = {
             name: "GB" + i, 
             boxType: "empty",
-            orientation: "none",
+            direction: "none",
             destination: "departing"
         };
         this.gameSpaceArray.push(boxDivObject);
@@ -43,61 +43,62 @@ function randomInt() {
     return startNumber;
 }
 
-function getOrientation(inputNumber) {
-    var orientation = "";
-    var orientationBoolean = false;
+function getdirection(inputNumber) {
+    var direction = "";
+    var directionBoolean = false;
 
-    while (orientationBoolean == false) {
+    while (directionBoolean == false) {
         for (i=0; i <goingLeft.length; i++) {
             if (inputNumber == goingLeft[i]) {
-                orientationBoolean = true;
-                orientation = "goingLeft";
+                directionBoolean = true;
+                direction = "goingLeft";
             }
         }
         for (i=0; i <goingDown.length; i++) {
             if (inputNumber == goingDown[i]) {
-                orientationBoolean = true;
-                orientation = "goingDown";
+                directionBoolean = true;
+                direction = "goingDown";
             }
         }
         for (i=0; i <goingUp.length; i++) {
             if (inputNumber == goingUp[i]) {
-                orientationBoolean = true;
-                orientation = "goingUp";
+                directionBoolean = true;
+                direction = "goingUp";
             }
         }
         for (i=0; i <goingRight.length; i++) {
             if (inputNumber == goingRight[i]) {
-                orientationBoolean = true;
-                orientation = "goingRight";
+                directionBoolean = true;
+                direction = "goingRight";
             }
         }
     }
-    return orientation;    
+    return direction;    
 }
 
-function rotateOrientation(num) {
-    var orientation = getOrientation(num); 
-
-    if (orientation == "goingDown") {
+function rotateDirection(num, direction) { 
+    if (direction == "goingDown") {
         document.getElementById("GB" + num).style.transform = 'rotate(90deg)';
-    } else if (orientation == "goingLeft") {
+    } else if (direction == "goingLeft") {
         document.getElementById("GB" + num).style.transform = 'rotate(180deg)';
-    } else if (orientation == "goingUp") {
+    } else if (direction == "goingUp") {
         document.getElementById("GB" + num).style.transform = 'rotate(-90deg)';
     }
-    gameSpaceArray[num].orientation = orientation;
 }
 
-function setTank(num) {
+function setTank(num, directionString) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';  
-    rotateOrientation(num); 
     gameSpaceArray[num].boxType = "blueTank"; 
+
+    rotateDirection(num, directionString); 
+    gameSpaceArray[num].direction = directionString;
 }
 
 function removeTank(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox"> ' + num + '</div>'; 
-    gameSpaceArray[num].orientation = "none";
+    gameSpaceArray[num].boxType = "empty"; 
+
+    gameSpaceArray[num].direction = "none";
 }
 
 function removeAll() {
@@ -108,14 +109,82 @@ function removeAll() {
 }
 
 function movingTanks() {
-    var num = randomInt();
-    setTank(num);
+    var start = randomInt();
+    var directionVariable = getdirection(start); 
+  
+    var divElement = gameSpaceArray[start];
+    setTank(start, directionVariable);
+    
+///// Tank Moving Code /////
+
+    if (divElement.direction == "goingRight") {
+        var end = start + 10;
+        var timer = setInterval(function() {
+            divElement = gameSpaceArray[start];
+ 
+            removeTank(start);
+            start++;
+            setTank(start, directionVariable); 
+
+            if (start == end) {
+                clearInterval(timer);
+                removeTank(start);
+            }
+        } , 500);
+    }
+
+    if (divElement.direction == "goingLeft") {
+        var end = start - 10;
+        var timer = setInterval(function() {
+            divElement = gameSpaceArray[start];
+ 
+            removeTank(start);
+            start--;
+            setTank(start, directionVariable); 
+
+            if (start == end) {
+                clearInterval(timer);
+                removeTank(start);
+            }
+        } , 500);
+    }
+    if (divElement.direction == "goingUp") {
+        var end = start - 90;
+        var timer = setInterval(function() {
+            divElement = gameSpaceArray[start];
+ 
+            removeTank(start);
+            start = start - 10;
+            setTank(start, directionVariable); 
+
+            if (start == end) {
+                clearInterval(timer);
+                removeTank(start);
+            }
+        } , 500);
+    }
+
+    if (divElement.direction == "goingDown") {
+        var end = start + 90;
+        var timer = setInterval(function() {
+            divElement = gameSpaceArray[start];
+ 
+            removeTank(start);
+            start = start + 10;
+            setTank(start, directionVariable); 
+
+            if (start == end) {
+                clearInterval(timer);
+                removeTank(start);
+            }
+        } , 500);
+    }
 }
 
 function info() {
     var text = "";
     for (i = 1; i < gameSpaceArray.length; i++) {
-        var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].orientation + "<br>";        
+        var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].direction + "<br>";        
     }
     document.getElementById("infoDetails").innerHTML = text;
 }
