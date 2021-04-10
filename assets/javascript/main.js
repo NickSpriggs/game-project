@@ -10,7 +10,8 @@ window.onload = function(){
 
     for (i=0; i < 100; i++) {
 
-        var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox"> ' + (i + 1) + '</div>'; 
+        //var boxDiv = '<div id="GB1" class="gameBox" onclick="setMine(1)"></div>';
+        var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox")> ' + (i + 1) + '</div>'; 
         gameSpace.innerHTML += boxDiv;
 
         boxDivObject = {
@@ -120,7 +121,6 @@ function movingTanks() {
     if (divElement.direction == "goingRight") {
         var end = start + 10;
         var timer = setInterval(function() {
-            divElement = gameSpaceArray[start];
  
             removeTank(start);
             start++;
@@ -136,7 +136,6 @@ function movingTanks() {
     if (divElement.direction == "goingLeft") {
         var end = start - 10;
         var timer = setInterval(function() {
-            divElement = gameSpaceArray[start];
  
             removeTank(start);
             start--;
@@ -150,24 +149,25 @@ function movingTanks() {
     }
     if (divElement.direction == "goingUp") {
         var end = start - 90;
-        var timer = setInterval(function() {
-            divElement = gameSpaceArray[start];
- 
+        var timer = setInterval(function() { 
+
             removeTank(start);
             start = start - 10;
             setTank(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
-                removeTank(start);
+
+                setTimeout(function() {
+                    removeTank(start);
+                }, 500);    
             }
-        } , 500);
+        } , 500);   
     }
 
     if (divElement.direction == "goingDown") {
         var end = start + 90;
         var timer = setInterval(function() {
-            divElement = gameSpaceArray[start];
  
             removeTank(start);
             start = start + 10;
@@ -175,9 +175,12 @@ function movingTanks() {
 
             if (start == end) {
                 clearInterval(timer);
-                removeTank(start);
+
+                setTimeout(function() {
+                    removeTank(start);
+                }, 500);    
             }
-        } , 500);
+        } , 500); 
     }
 }
 
@@ -187,4 +190,9 @@ function info() {
         var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].direction + "<br>";        
     }
     document.getElementById("infoDetails").innerHTML = text;
+}
+
+function setMine(num) {
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + num + '</div>'; 
+    gameSpaceArray[num].boxType = "landMine"; 
 }

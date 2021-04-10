@@ -90,3 +90,22 @@ facingUp: when on 98 look for 88 then 78 then 68 until 8
     }
 
 
+            Create Mines
+
+boxType = "empty", "tank", "mine"
+
+var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox"> ' + (i + 1) + '</div>'; 
+
+gbId.outerHTML = '<div id="GB' + gbNum + '" class="gameBox tankBlue" onclick="destroyTank(GB' + gbNum + ', ' + gbNum + ')"></div>';
+<div id="GB + gbNum + class="gameBox tankBlue" onclick="destroyTank(GB + gbNum, gbNum)"></div>;
+
+
+
+
+ex
+<div id="GBi" class="gameBox" onclick="createMine(GBi)"></div>; 
+
+function createMine(GBi) {
+    create image
+
+}

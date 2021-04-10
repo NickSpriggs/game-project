@@ -38,6 +38,13 @@ html,body{
     background-position: center;
 }
 
+.landMine {
+    background-image: url("../images/landMine.png");  
+    background-size: 60%; 
+    background-repeat: no-repeat;  
+    background-position: center;
+}
+
 .map {
     background: url("../images/gameMap.png");
     background-size: auto;
