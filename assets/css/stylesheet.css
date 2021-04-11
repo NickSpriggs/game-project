@@ -27,6 +27,14 @@ html,body{
     border-color: #193947;
 }
 
+
+.gameBox:hover {
+    height: 56px;
+    width: 56px;
+    border-color: red;
+    border-width: 2px;
+}
+
 .down {
     transform: rotate(90deg);
 }
