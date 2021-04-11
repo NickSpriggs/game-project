@@ -11,16 +11,15 @@
 </head>
 <body style="background-image: url(/assets/images/camo.jpg); background-size: 35%;">
     <div class="container-fluid">
-        <div class="row">
-            <div id="gameSpace" class="map"></div>      
-        </div>
+        
+        <div id="gameSpace" class="map"></div>      
 
-        <button onclick="movingTanks()">Move Tank!</button>
+        <button onclick="movingTanks()">Make Tank!</button>
         <button onclick="clearAll()">Clear Board!</button>
-        <button onclick="info()">Update Info</button>
-        <button onclick="infoMore()">More Info</button>
+        <button onclick="info()">Update Info</button>            
+        <button onclick="infoMore()">Live Update</button>
+        <div id="infoDetails"></div>
 
-        <div id="infoDetails" class="row"></div>
     </div>
 </body>
 </html>
