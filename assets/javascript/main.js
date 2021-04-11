@@ -10,13 +10,13 @@ window.onload = function(){
 
     for (i=0; i <  100; i++) {
 
-        var GBi = (i + 1);
-        var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + (GBi) + '</div>'; 
+        var boxNumber = (i + 1);
+        var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + (boxNumber) + '</div>'; 
         //var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox">' + (i + 1) + '</div>'; 
         gameSpace.innerHTML += boxDiv;
 
         boxDivObject = {
-            name: "Box #" + (GBi), 
+            name: "Box #" + (boxNumber), 
             boxType: "empty",
             direction: "none",
             destination: "departing"
@@ -116,11 +116,8 @@ function runTank() {
     var start = randomInt();
     var directionVariable = getDirection(start); 
 
-    console.log("Coded Starting Integer: " + start);
     start = start - 1;
-
     var divElement = gameSpaceArray[start];
-
     setTank(start, directionVariable);
     
 ///// Tank Moving Code /////
@@ -203,7 +200,7 @@ function getMoreInfo() {
     setInterval(function() {
         var text = "";
         for (i = 0; i <  gameSpaceArray.length; i++) {
-            var text = text + "" + gameSpaceArray[i].name + " | Index in Array: " + i + " | div id = GB" + i + " | Box Type: " + 
+            var text = text + "" + gameSpaceArray[i].name + " | Array Index: " + i + " | div id = GB" + i + " | Box Type: " + 
             gameSpaceArray[i].boxType + " | Direction: " + gameSpaceArray[i].direction + "<br>";     
         }
         document.getElementById("infoDetails").style.fontSize = '10px';
@@ -243,9 +240,23 @@ function makeFiveTanks() {
     }, 12000);
 }
 
+function replay() {
+    console.log(prevTankRun);
+}
+
 function setMine(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + (num + 1) + '</div>'; 
-    gameSpaceArray[num].boxType = "landMine"; 
+    var noRunningTanks = true;
+
+    for (i=0; i < 100; i++) {
+        if (gameSpaceArray[i].boxType == "blueTank") {
+            noRunningTanks = false;
+        }
+    }
+
+    if (noRunningTanks == true) {
+        document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + (num + 1) + '</div>'; 
+        gameSpaceArray[num].boxType = "landMine";         
+    }
 }
 
 
