@@ -109,3 +109,9 @@ function createMine(GBi) {
     create image
 
 }
+
+
+// if setTank occurs on a spaceArray[i].type = "landMine" || spaceArray[i].type = "hole {
+    then setExplosion instead of setTank 
+    ???? stop setTank Loop?????
+}

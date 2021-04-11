@@ -4,6 +4,7 @@ const goingRight = [11,21,31,41,51,61,71,81];
 const goingUp = [92,93,94,95,96,97,98,99];
 const goingDown = [2,3,4,5,6,7,8,9];
 var gameSpaceArray = [];
+var trackerArray = [];
 
 window.onload = function(){
     var gameSpace = document.getElementById("gameSpace");
@@ -95,6 +96,9 @@ function setTank(num, directionString) {
     gameSpaceArray[num].boxType = "blueTank"; 
     gameSpaceArray[num].direction = directionString;
 
+
+
+    trackerArray.push(gameSpaceArray[num].name + " | Index: " + num);
     //console.log(gameSpaceArray[num].name + " | Index in Array: " + num + " | <div id= GB" + (num));
 }
 
@@ -118,46 +122,53 @@ function runTank() {
 
     start = start - 1;
     var divElement = gameSpaceArray[start];
-    setTank(start, directionVariable);
+    setTankOrExplosion(start, directionVariable);
     
 ///// Tank Moving Code /////
 
     if (divElement.direction == "goingRight") {
-        var end = start + 10;
+        var end = start + 9;
         var timer = setInterval(function() {
  
             clearBox(start);
             start++;
-            setTank(start, directionVariable); 
+            setTankOrExplosion(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
-                clearBox(start);
+                
+                setTimeout(function() {
+                    clearBox(start);
+                }, 300);    
             }
-        } , 300);
+        } , 300);   
     }
 
     if (divElement.direction == "goingLeft") {
-        var end = start - 10;
+        var end = start - 9;
         var timer = setInterval(function() {
  
             clearBox(start);
             start--;
-            setTank(start, directionVariable); 
+            setTankOrExplosion(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
-                clearBox(start);
+
+                setTimeout(function() {
+                    clearBox(start);
+                }, 300);    
             }
-        } , 300);
+        } , 300);   
     }
+
     if (divElement.direction == "goingUp") {
         var end = start - 90;
         var timer = setInterval(function() { 
 
             clearBox(start);
             start = start - 10;
-            setTank(start, directionVariable); 
+            setTankOrExplosion(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
@@ -175,7 +186,7 @@ function runTank() {
  
             clearBox(start);
             start = start + 10;
-            setTank(start, directionVariable); 
+            setTankOrExplosion(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
@@ -209,18 +220,20 @@ function getMoreInfo() {
 }
 
 function makeThreeTanks() {
-    runTank();
+    trackerArray = [];
 
+    runTank();
     setTimeout(function(){
         runTank();        
     }, 3000);
-
     setTimeout(function(){
         runTank();        
     }, 6000);
 }
 
 function makeFiveTanks() {
+    trackerArray = [];
+
     runTank();
 
     setTimeout(function(){
@@ -241,7 +254,7 @@ function makeFiveTanks() {
 }
 
 function replay() {
-    console.log(prevTankRun);
+    console.log(trackerArray);
 }
 
 function setMine(num) {
@@ -261,12 +274,27 @@ function setMine(num) {
 
 
 ///// Unused Yet //////
+
 function setExplosion(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + num + '</div>'; 
-    gameSpaceArray[num].boxType = "explosion";     
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + (num + 1) + '</div>'; 
+    gameSpaceArray[num].boxType = "explosion"; 
+    
+    setTimeout(function(){
+        setHole(num);
+    }, 500)
+}
+
+function setTankOrExplosion(num, directionString) {
+    console.log("Box #" + (num + 1) + "| Array Index: " + num + " | Box Type: "  + gameSpaceArray[num].boxType);
+
+    if (gameSpaceArray[num].boxType != "landMine") {
+        setTank(num, directionString);        
+    } else if (gameSpaceArray[num].boxType == "landMine") {
+        setExplosion(num);        
+    }
 }
 
 function setHole(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + num + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + (num + 1) + '</div>'; 
     gameSpaceArray[num].boxType = "hole";         
 }
