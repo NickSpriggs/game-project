@@ -8,7 +8,7 @@ var gameSpaceArray = [];
 window.onload = function(){
     var gameSpace = document.getElementById("gameSpace");
 
-    for (i=0; i < 100; i++) {
+    for (i=0; i <  100; i++) {
 
         var GBi = (i + 1);
         var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + (GBi) + '</div>'; 
@@ -22,8 +22,7 @@ window.onload = function(){
             destination: "departing"
         };
         this.gameSpaceArray.push(boxDivObject); 
-    }
-        console.log(gameSpaceArray);  
+    } 
 };
 
 function randomInt() {
@@ -35,7 +34,7 @@ function randomInt() {
     while (workingNumberBoolean == false) {
         startNumber = Math.floor(Math.random() * 101);
 
-        for (i=0; i <startArray.length; i++) {
+        for (i=0; i < startArray.length; i++) {
 
             if (startNumber == startArray[i]) {
                 workingNumberBoolean = true;
@@ -46,30 +45,30 @@ function randomInt() {
     // startNumber is the box number NOT the actual index in the array 
 }
 
-function getdirection(inputNumber) {
+function getDirection(inputNumber) {
     var direction = "";
     var directionBoolean = false;
 
     while (directionBoolean == false) {
-        for (i=0; i <goingLeft.length; i++) {
+        for (i=0; i <  goingLeft.length; i++) {
             if (inputNumber == goingLeft[i]) {
                 directionBoolean = true;
                 direction = "goingLeft";
             }
         }
-        for (i=0; i <goingDown.length; i++) {
+        for (i=0; i < goingDown.length; i++) {
             if (inputNumber == goingDown[i]) {
                 directionBoolean = true;
                 direction = "goingDown";
             }
         }
-        for (i=0; i <goingUp.length; i++) {
+        for (i=0; i < goingUp.length; i++) {
             if (inputNumber == goingUp[i]) {
                 directionBoolean = true;
                 direction = "goingUp";
             }
         }
-        for (i=0; i <goingRight.length; i++) {
+        for (i=0; i < goingRight.length; i++) {
             if (inputNumber == goingRight[i]) {
                 directionBoolean = true;
                 direction = "goingRight";
@@ -107,7 +106,7 @@ function clearBox(num) {
 }
 
 function clearAll() {
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i <  100; i++) {
         clearBox(i);
         gameSpaceArray[i].boxType = "empty"; 
     }
@@ -115,7 +114,7 @@ function clearAll() {
 
 function movingTanks() {
     var start = randomInt();
-    var directionVariable = getdirection(start); 
+    var directionVariable = getDirection(start); 
 
     console.log("Coded Starting Integer: " + start);
     start = start - 1;
@@ -192,18 +191,18 @@ function movingTanks() {
     }
 }
 
-function info() {
+function getInfo() {
     var text = "";
-    for (i = 0; i < gameSpaceArray.length; i++) {
+    for (i = 0; i <  gameSpaceArray.length; i++) {
         var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].direction + "<br>";        
     }
     document.getElementById("infoDetails").innerHTML = text;
 }
 
-function infoMore() {
+function getMoreInfo() {
     setInterval(function() {
         var text = "";
-        for (i = 0; i < gameSpaceArray.length; i++) {
+        for (i = 0; i <  gameSpaceArray.length; i++) {
             var text = text + "" + gameSpaceArray[i].name + " | Index in Array: " + i + " | div id = GB" + i + " | Box Type: " + 
             gameSpaceArray[i].boxType + " | Direction: " + gameSpaceArray[i].direction + "<br>";     
         }

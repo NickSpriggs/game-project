@@ -3,6 +3,11 @@ html,body{
   overflow-y: auto;
 }
 
+button {
+    height: 20px;
+    width: 100%;
+}
+
 #gameSpace {
     margin-top: 10px;
     margin-left: auto;
@@ -14,11 +19,6 @@ html,body{
 
     height: 600px;
     width: 600px;
-}
-
-button {
-    height: 20px;
-    width: 100%;
 }
 
 .gameBox {
@@ -80,4 +80,72 @@ button {
     background-color: white;
     color: black;
     width: 500px;
+}
+
+/*   Scalability */
+
+@media only screen and (max-width: 700px) {
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 400px;
+        width: 400px;
+    }
+
+    .gameBox {
+        height: 38px;
+        width: 38px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 36px;
+        width: 36px;
+        border-color: red;
+        border-width: 2px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 300px;
+        width: 300px;
+    }
+
+    .gameBox {
+        height: 28px;
+        width: 28px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 26px;
+        width: 26px;
+        border-color: red;
+        border-width: 2px;
+    }
 }
