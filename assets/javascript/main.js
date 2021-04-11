@@ -10,25 +10,25 @@ window.onload = function(){
 
     for (i=0; i < 100; i++) {
 
-        var GBi = i + 1;
-        var boxDiv = '<div id=' + 'GB' + (GBi) + ' class="gameBox" onclick="setMine(' + (GBi) + ')">' + (GBi) + '</div>'; 
+        var GBi = (i + 1);
+        var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + (GBi) + '</div>'; 
         //var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox">' + (i + 1) + '</div>'; 
         gameSpace.innerHTML += boxDiv;
 
         boxDivObject = {
-            name: "GB" + i, 
+            name: "Box #" + (GBi), 
             boxType: "empty",
             direction: "none",
             destination: "departing"
         };
-        this.gameSpaceArray.push(boxDivObject);
-        
+        this.gameSpaceArray.push(boxDivObject); 
     }
+        console.log(gameSpaceArray);  
 };
 
 function randomInt() {
-    //random number from either 1-10 / 10s-100 / 91-100 / 1-11-21-31-41...91 to start:
-        // [2/3/4/5/6/7/8/9/20/30/40/50/60/70/80/90/11/21/31/41/51/61/71/81/92/93/94/95/96/97/98/99   [1][10[91][100]
+    //     random number from either 1-10 / 10s-100 / 91-100 / 1-11-21-31-41...91 to start:
+    // (2/3/4/5/6/7/8/9/20/30/40/50/60/70/80/90/11/21/31/41/51/61/71/81/92/93/94/95/96/97/98/99) | [1][10[91][100]
     var startNumber = 0;
     var workingNumberBoolean = false;
 
@@ -43,6 +43,7 @@ function randomInt() {
         }
     }
     return startNumber;
+    // startNumber is the box number NOT the actual index in the array 
 }
 
 function getdirection(inputNumber) {
@@ -89,22 +90,24 @@ function rotateDirection(num, direction) {
 }
 
 function setTank(num, directionString) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + num + '</div>';  
-    gameSpaceArray[num].boxType = "blueTank"; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + (num + 1) + '</div>';
+    rotateDirection(num, directionString);  
 
-    rotateDirection(num, directionString); 
+    gameSpaceArray[num].boxType = "blueTank"; 
     gameSpaceArray[num].direction = directionString;
+
+    //console.log(gameSpaceArray[num].name + " | Index in Array: " + num + " | <div id= GB" + (num));
 }
 
 function removeTank(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + num + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + (num + 1) + '</div>'; 
     gameSpaceArray[num].boxType = "empty"; 
 
     gameSpaceArray[num].direction = "none";
 }
 
 function removeAll() {
-    for (i = 1; i < 100; i++) {
+    for (i = 0; i < 100; i++) {
         removeTank(i);
         gameSpaceArray[i].boxType = "empty"; 
     }
@@ -113,8 +116,12 @@ function removeAll() {
 function movingTanks() {
     var start = randomInt();
     var directionVariable = getdirection(start); 
-  
+
+    console.log("Coded Starting Integer: " + start);
+    start = start - 1;
+
     var divElement = gameSpaceArray[start];
+
     setTank(start, directionVariable);
     
 ///// Tank Moving Code /////
@@ -187,14 +194,22 @@ function movingTanks() {
 
 function info() {
     var text = "";
-    for (i = 1; i < gameSpaceArray.length; i++) {
+    for (i = 0; i < gameSpaceArray.length; i++) {
         var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].direction + "<br>";        
     }
     document.getElementById("infoDetails").innerHTML = text;
 }
 
+function infoMore() {
+    var text = "";
+    for (i = 0; i < gameSpaceArray.length; i++) {
+        var text = text + "[index / divId: " + i + " | Box: " + gameSpaceArray[i].name + "] ";        
+    }
+    document.getElementById("infoDetails").innerHTML = text;
+}
+
 function setMine(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + num + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + (num + 1) + '</div>'; 
     gameSpaceArray[num].boxType = "landMine"; 
 }
 
