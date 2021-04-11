@@ -99,16 +99,16 @@ function setTank(num, directionString) {
     //console.log(gameSpaceArray[num].name + " | Index in Array: " + num + " | <div id= GB" + (num));
 }
 
-function removeTank(num) {
+function clearBox(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + (num + 1) + '</div>'; 
     gameSpaceArray[num].boxType = "empty"; 
 
     gameSpaceArray[num].direction = "none";
 }
 
-function removeAll() {
+function clearAll() {
     for (i = 0; i < 100; i++) {
-        removeTank(i);
+        clearBox(i);
         gameSpaceArray[i].boxType = "empty"; 
     }
 }
@@ -130,13 +130,13 @@ function movingTanks() {
         var end = start + 10;
         var timer = setInterval(function() {
  
-            removeTank(start);
+            clearBox(start);
             start++;
             setTank(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
-                removeTank(start);
+                clearBox(start);
             }
         } , 300);
     }
@@ -145,13 +145,13 @@ function movingTanks() {
         var end = start - 10;
         var timer = setInterval(function() {
  
-            removeTank(start);
+            clearBox(start);
             start--;
             setTank(start, directionVariable); 
 
             if (start == end) {
                 clearInterval(timer);
-                removeTank(start);
+                clearBox(start);
             }
         } , 300);
     }
@@ -159,7 +159,7 @@ function movingTanks() {
         var end = start - 90;
         var timer = setInterval(function() { 
 
-            removeTank(start);
+            clearBox(start);
             start = start - 10;
             setTank(start, directionVariable); 
 
@@ -167,7 +167,7 @@ function movingTanks() {
                 clearInterval(timer);
 
                 setTimeout(function() {
-                    removeTank(start);
+                    clearBox(start);
                 }, 300);    
             }
         } , 300);   
@@ -177,7 +177,7 @@ function movingTanks() {
         var end = start + 90;
         var timer = setInterval(function() {
  
-            removeTank(start);
+            clearBox(start);
             start = start + 10;
             setTank(start, directionVariable); 
 
@@ -185,7 +185,7 @@ function movingTanks() {
                 clearInterval(timer);
 
                 setTimeout(function() {
-                    removeTank(start);
+                    clearBox(start);
                 }, 300);    
             }
         } , 300); 
