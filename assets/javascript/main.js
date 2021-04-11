@@ -112,7 +112,7 @@ function clearAll() {
     }
 }
 
-function movingTanks() {
+function runTank() {
     var start = randomInt();
     var directionVariable = getDirection(start); 
 
@@ -209,6 +209,38 @@ function getMoreInfo() {
         document.getElementById("infoDetails").style.fontSize = '10px';
         document.getElementById("infoDetails").innerHTML = text;
     }, 250)
+}
+
+function makeThreeTanks() {
+    runTank();
+
+    setTimeout(function(){
+        runTank();        
+    }, 3000);
+
+    setTimeout(function(){
+        runTank();        
+    }, 6000);
+}
+
+function makeFiveTanks() {
+    runTank();
+
+    setTimeout(function(){
+        runTank();        
+    }, 3000);
+
+    setTimeout(function(){
+        runTank();        
+    }, 6000);
+
+    setTimeout(function(){
+        runTank();        
+    }, 9000);
+
+    setTimeout(function(){
+        runTank();        
+    }, 12000);
 }
 
 function setMine(num) {
