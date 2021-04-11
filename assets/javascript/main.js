@@ -201,11 +201,15 @@ function info() {
 }
 
 function infoMore() {
-    var text = "";
-    for (i = 0; i < gameSpaceArray.length; i++) {
-        var text = text + "[index / divId: " + i + " | Box: " + gameSpaceArray[i].name + "] ";        
-    }
-    document.getElementById("infoDetails").innerHTML = text;
+    setInterval(function() {
+        var text = "";
+        for (i = 0; i < gameSpaceArray.length; i++) {
+            var text = text + "" + gameSpaceArray[i].name + " | Index in Array: " + i + " | div id = GB" + i + " | Box Type: " + 
+            gameSpaceArray[i].boxType + " | Direction: " + gameSpaceArray[i].direction + "<br>";     
+        }
+        document.getElementById("infoDetails").style.fontSize = '10px';
+        document.getElementById("infoDetails").innerHTML = text;
+    }, 250)
 }
 
 function setMine(num) {
