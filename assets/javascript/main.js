@@ -122,82 +122,67 @@ function runTank() {
 
     start = start - 1;
     var divElement = gameSpaceArray[start];
+
     setTankOrExplosion(start, directionVariable);
     
 ///// Tank Moving Code /////
 
     if (divElement.direction == "goingRight") {
         var end = start + 9;
-        var timer = setInterval(function() {
- 
-            clearBox(start);
-            start++;
-            setTankOrExplosion(start, directionVariable); 
+        var movement = +1;
 
-            if (start == end) {
-                clearInterval(timer);
-                
-                setTimeout(function() {
-                    clearBox(start);
-                }, 300);    
-            }
-        } , 300);   
+        runMovement(start, end, movement, directionVariable);
+
     }
 
     if (divElement.direction == "goingLeft") {
         var end = start - 9;
-        var timer = setInterval(function() {
- 
-            clearBox(start);
-            start--;
-            setTankOrExplosion(start, directionVariable); 
+        var movement = -1;
 
-            if (start == end) {
-                clearInterval(timer);
+        runMovement(start, end, movement, directionVariable);
 
-                setTimeout(function() {
-                    clearBox(start);
-                }, 300);    
-            }
-        } , 300);   
     }
 
     if (divElement.direction == "goingUp") {
         var end = start - 90;
-        var timer = setInterval(function() { 
+        var movement = -10;
 
-            clearBox(start);
-            start = start - 10;
-            setTankOrExplosion(start, directionVariable); 
-
-            if (start == end) {
-                clearInterval(timer);
-
-                setTimeout(function() {
-                    clearBox(start);
-                }, 300);    
-            }
-        } , 300);   
+        runMovement(start, end, movement, directionVariable);
     }
 
     if (divElement.direction == "goingDown") {
         var end = start + 90;
-        var timer = setInterval(function() {
- 
-            clearBox(start);
-            start = start + 10;
-            setTankOrExplosion(start, directionVariable); 
+        var movement = 10;
 
-            if (start == end) {
-                clearInterval(timer);
-
-                setTimeout(function() {
-                    clearBox(start);
-                }, 300);    
-            }
-        } , 300); 
+        runMovement(start, end, movement, directionVariable);
     }
 }
+
+function runMovement(start, end, plusNum, directionVariable) {
+        var timer = setInterval(function() {
+            
+        clearBox(start);
+        start = start + plusNum;
+        setTankOrExplosion(start, directionVariable); 
+        
+        if (start == end || gameSpaceArray[start].boxType == "explosion" || gameSpaceArray[start].boxType == "hole") {
+                //console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
+
+            clearInterval(timer);
+
+            if (start == end || gameSpaceArray[start].boxType == "explosion") {
+                setTimeout(function() {
+                clearBox(start);
+                }, 300);
+            }
+            
+            if (gameSpaceArray[start].boxType == "hole") {
+                setHole(start);                
+            }
+        }
+    } , 300);
+}
+
 
 function getInfo() {
     var text = "";
@@ -258,6 +243,23 @@ function replay() {
 }
 
 function setMine(num) {
+    var noRunningTanks = checkBoard();
+
+    if (noRunningTanks == true) {
+        document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine" onclick="clearBoxBeforeTankRun(' + (num) + ')">'  + (num + 1) + '</div>'; 
+        gameSpaceArray[num].boxType = "landMine";         
+    }
+}
+
+function clearBoxBeforeTankRun(num) {
+    var noRunningTanks = checkBoard();
+
+    if (noRunningTanks == true) {
+        clearBox(num);
+    }    
+}
+
+function checkBoard() {
     var noRunningTanks = true;
 
     for (i=0; i < 100; i++) {
@@ -265,15 +267,8 @@ function setMine(num) {
             noRunningTanks = false;
         }
     }
-
-    if (noRunningTanks == true) {
-        document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine"> ' + (num + 1) + '</div>'; 
-        gameSpaceArray[num].boxType = "landMine";         
-    }
+    return noRunningTanks;
 }
-
-
-///// Unused Yet //////
 
 function setExplosion(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + (num + 1) + '</div>'; 
@@ -285,9 +280,8 @@ function setExplosion(num) {
 }
 
 function setTankOrExplosion(num, directionString) {
-    console.log("Box #" + (num + 1) + "| Array Index: " + num + " | Box Type: "  + gameSpaceArray[num].boxType);
-
-    if (gameSpaceArray[num].boxType != "landMine") {
+    //console.log("Box #" + (num + 1) + "| Array Index: " + num + " | Box Type: "  + gameSpaceArray[num].boxType);
+    if (gameSpaceArray[num].boxType == "empty") {
         setTank(num, directionString);        
     } else if (gameSpaceArray[num].boxType == "landMine") {
         setExplosion(num);        
