@@ -115,3 +115,8 @@ function createMine(GBi) {
     then setExplosion instead of setTank 
     ???? stop setTank Loop?????
 }
+
+
+
+// need function that replays first loop. 
+// need function that determines the fewest number of mines neccesary to intercept every path

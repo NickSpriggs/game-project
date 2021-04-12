@@ -5,6 +5,7 @@ const goingUp = [92,93,94,95,96,97,98,99];
 const goingDown = [2,3,4,5,6,7,8,9];
 var gameSpaceArray = [];
 var trackerArray = [];
+var killTrackerArray = [];
 
 window.onload = function(){
     var gameSpace = document.getElementById("gameSpace");
@@ -116,8 +117,7 @@ function clearAll() {
     }
 }
 
-function runTank() {
-    var start = randomInt();
+function runTank(start) {
     var directionVariable = getDirection(start); 
 
     start = start - 1;
@@ -173,23 +173,16 @@ function runMovement(start, end, plusNum, directionVariable) {
             if (start == end || gameSpaceArray[start].boxType == "explosion") {
                 setTimeout(function() {
                 clearBox(start);
+                killTrackerArray.push(start);
                 }, 300);
             }
             
             if (gameSpaceArray[start].boxType == "hole") {
-                setHole(start);                
+                setHole(start);  
+                killTrackerArray.push(start);            
             }
         }
     } , 300);
-}
-
-
-function getInfo() {
-    var text = "";
-    for (i = 0; i <  gameSpaceArray.length; i++) {
-        var text = text + "" + gameSpaceArray[i].name + " " + gameSpaceArray[i].boxType + " " + gameSpaceArray[i].direction + "<br>";        
-    }
-    document.getElementById("infoDetails").innerHTML = text;
 }
 
 function getMoreInfo() {
@@ -206,40 +199,31 @@ function getMoreInfo() {
 
 function makeThreeTanks() {
     trackerArray = [];
+    var firstTankStart = randomInt();
+    var secondTankStart = randomInt();
+    var thirdTankStart = randomInt();
+    trackerArray.push(firstTankStart, secondTankStart, thirdTankStart)
 
-    runTank();
+    runTank(firstTankStart);
     setTimeout(function(){
-        runTank();        
+        runTank(secondTankStart);        
     }, 3000);
     setTimeout(function(){
-        runTank();        
+        runTank(thirdTankStart);        
     }, 6000);
-}
-
-function makeFiveTanks() {
-    trackerArray = [];
-
-    runTank();
-
-    setTimeout(function(){
-        runTank();        
-    }, 3000);
-
-    setTimeout(function(){
-        runTank();        
-    }, 6000);
-
-    setTimeout(function(){
-        runTank();        
-    }, 9000);
-
-    setTimeout(function(){
-        runTank();        
-    }, 12000);
 }
 
 function replay() {
-    console.log(trackerArray);
+    trackerArray;
+    killTrackerArray = [];
+
+    runTank(trackerArray[0]);
+    setTimeout(function(){
+        runTank(trackerArray[1]);        
+    }, 3500);
+    setTimeout(function(){
+        runTank(trackerArray[2]);        
+    }, 6500);
 }
 
 function setMine(num) {
@@ -291,4 +275,22 @@ function setTankOrExplosion(num, directionString) {
 function setHole(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + (num + 1) + '</div>'; 
     gameSpaceArray[num].boxType = "hole";         
+}
+
+function fullTest() {
+    var text = " ";
+    makeThreeTanks();
+
+    setTimeout(function(){
+        replay();
+    }, 20000);
+
+    if (killTrackerArray.length == 3) {
+        text += "You incapacitate all enemy vehicles: " + killTrackerArray.length;
+    } else {
+        text += "You failed, you did not incapacitate all enemy vehicles: " + killTrackerArray.length;   
+    }    
+    setTimeout(function(){
+        alert(text);
+    }, 35000);    
 }
