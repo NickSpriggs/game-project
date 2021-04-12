@@ -5,7 +5,7 @@ const goingUp = [92,93,94,95,96,97,98,99];
 const goingDown = [2,3,4,5,6,7,8,9];
 var gameSpaceArray = [];
 var trackerArray = [];
-var killTrackerArray = [];
+var killTrackerArray = 0;
 
 window.onload = function(){
     var gameSpace = document.getElementById("gameSpace");
@@ -173,13 +173,16 @@ function runMovement(start, end, plusNum, directionVariable) {
             if (start == end || gameSpaceArray[start].boxType == "explosion") {
                 setTimeout(function() {
                 clearBox(start);
-                killTrackerArray.push(start);
                 }, 300);
             }
             
             if (gameSpaceArray[start].boxType == "hole") {
-                setHole(start);  
-                killTrackerArray.push(start);            
+                setHole(start);         
+            }
+
+            if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
+                killTrackerArray++; 
+                console.log("Explosion/Hole KillTracker: " + killTrackerArray);  
             }
         }
     } , 300);
@@ -199,31 +202,34 @@ function getMoreInfo() {
 
 function makeThreeTanks() {
     trackerArray = [];
+    killTrackerArray = 0;
+
     var firstTankStart = randomInt();
     var secondTankStart = randomInt();
     var thirdTankStart = randomInt();
     trackerArray.push(firstTankStart, secondTankStart, thirdTankStart)
 
     runTank(firstTankStart);
+            // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
     setTimeout(function(){
-        runTank(secondTankStart);        
-    }, 3000);
+        runTank(secondTankStart);  
+            // takes the same but start .8 seconds later  3.5 -> 6.5 seconds
+    }, 3500);
     setTimeout(function(){
-        runTank(thirdTankStart);        
-    }, 6000);
+        runTank(thirdTankStart); 
+            // takes the same but start .8 seconds later  7.0 -> 10 seconds
+    }, 7000);
 }
 
 function replay() {
-    trackerArray;
-    killTrackerArray = [];
-
     runTank(trackerArray[0]);
+    
     setTimeout(function(){
-        runTank(trackerArray[1]);        
+        runTank(trackerArray[1]);  
     }, 3500);
     setTimeout(function(){
-        runTank(trackerArray[2]);        
-    }, 6500);
+        runTank(trackerArray[2]); 
+    }, 7000);
 }
 
 function setMine(num) {
@@ -280,17 +286,18 @@ function setHole(num) {
 function fullTest() {
     var text = " ";
     makeThreeTanks();
+//  Takes 10 seconds
 
     setTimeout(function(){
         replay();
-    }, 20000);
-
-    if (killTrackerArray.length == 3) {
-        text += "You incapacitate all enemy vehicles: " + killTrackerArray.length;
-    } else {
-        text += "You failed, you did not incapacitate all enemy vehicles: " + killTrackerArray.length;   
-    }    
+    }, 15000);
+  
     setTimeout(function(){
+        if (killTrackerArray == 3) {
+            text += "You incapacitate all enemy vehicles: " + killTrackerArray;
+        } else {
+            text += "You failed, you only incapacitate this many enemy vehicles: " + killTrackerArray;   
+        }  
         alert(text);
-    }, 35000);    
+    }, 24500);    
 }
