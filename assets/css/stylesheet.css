@@ -34,6 +34,18 @@ button {
     width: 600px;
 }
 
+#leftInfoPanel {
+    height: 100px;
+    background-color: white;
+    width: 150px;
+}
+
+#rightInfoPanel {
+    height: 100px;
+    background-color: white;
+    width: 150px;
+}
+
 .gameBox {
     height: 58px;
     width: 58px;
@@ -80,6 +92,13 @@ button {
 .hole {
     background-image: url("../images/hole.png");  
     background-size: 95%; 
+    background-repeat: no-repeat;  
+    background-position: center;
+}
+
+.crash {
+    background-image: url("../images/crash.png");  
+    background-size: 80%; 
     background-repeat: no-repeat;  
     background-position: center;
 }

@@ -166,7 +166,6 @@ function runMovement(start, end, plusNum, directionVariable) {
         setTankOrExplosion(start, directionVariable); 
         
         if (start == end || gameSpaceArray[start].boxType == "explosion" || gameSpaceArray[start].boxType == "hole") {
-                //console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
 
             clearInterval(timer);
 
@@ -177,12 +176,13 @@ function runMovement(start, end, plusNum, directionVariable) {
             }
             
             if (gameSpaceArray[start].boxType == "hole") {
-                setHole(start);         
+                setCrash(start);         
             }
 
             if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
                 killTracker++; 
-                console.log("Explosion/Hole KillTracker: " + killTracker);  
+                console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
+                console.log("Explosion/ mHole KillTracker: " + killTracker);  
             }
         }
     } , 300);
@@ -263,6 +263,15 @@ function checkBoard() {
 function setExplosion(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + (num + 1) + '</div>'; 
     gameSpaceArray[num].boxType = "explosion"; 
+    
+    setTimeout(function(){
+        setHole(num);
+    }, 500)
+}
+
+function setCrash(num) {
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox crash"> ' + (num + 1) + '</div>'; 
+    gameSpaceArray[num].boxType = "crash"; 
     
     setTimeout(function(){
         setHole(num);
