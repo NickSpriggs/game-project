@@ -12,7 +12,15 @@
 <body style="background-image: url(/assets/images/camo.jpg); background-size: 35%;">
     <div class="container-fluid">
 
-        <div id="welcomeOverlay" onclick="overlayOff()">Invisible Home Screen (Tint): Rules / (Easy/Medium/Expert) </div>
+        <div id="welcomeOverlay">
+            <div id="introBox">
+                <div id="introImage"></div>
+                <div class="buttonCustomMain" onclick="instructions()">Instructions</div>
+                <div class="buttonCustom" onclick="overlayOff()">Easy</div>
+                <div class="buttonCustom">Medium</div>
+                <div class="buttonCustom">Hard</div>
+            </div>  
+        </div>
 
         <div class="centeredRow">
             <div id="InfoPanelLeft">
@@ -26,11 +34,10 @@
             </div>
         </div>
 
-        <button onclick="fullTest()">Full Test</button>
+        <button onclick="makeThreeTanks()">Ful Test</button>
         <button onclick="clearAll()">Clear Board!</button>        
         <button onclick="getMoreInfo()">Live Update</button>
         <button onclick="setHint()">Hint</button>
-        <button onclick="getPositions()">Get Positions Array</button>
         <div id="infoDetails"></div>
 
     </div>

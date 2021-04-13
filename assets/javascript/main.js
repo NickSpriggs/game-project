@@ -4,7 +4,7 @@ const goingRight = [11,21,31,41,51,61,71,81];
 const goingUp = [92,93,94,95,96,97,98,99];
 const goingDown = [2,3,4,5,6,7,8,9];
 var gameSpaceArray = [];
-var tankStartArray = [];
+var tankStartPositions = [];
 var tankTrackerArray = [];
 var killTracker = 0;
 var noRunningTanks = true;
@@ -126,6 +126,7 @@ function runTank(start) {
 
     setTankOrExplosionOrCrash(start, directionVariable);
 
+
     if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
         killTracker++; 
     }
@@ -166,17 +167,17 @@ function runTank(start) {
 function runMovement(start, end, movement, directionVariable) {
         var timer = setInterval(function() {
 
-        clearBox(start);
+        clearInBlue(start);
         start = start + movement;
         setTankOrExplosionOrCrash(start, directionVariable); 
         
         if (start == end || gameSpaceArray[start].boxType == "explosion" || gameSpaceArray[start].boxType == "hole") {
-
+            
             clearInterval(timer);
-
             if (start == end) {
                 setTimeout(function() {
-                clearBox(start);
+                clearInBlue(start);
+                clearForBlue(end, movement);
                 
                 }, 300);
             }
@@ -202,34 +203,34 @@ function getMoreInfo() {
 }
 
 function makeThreeTanks() {
-    tankStartArray = [];
+    tankStartPositions = [];
     killTracker = 0;
 
-    var firstTankStart = randomInt();
-    var secondTankStart = randomInt();
-    var thirdTankStart = randomInt();
-    tankStartArray.push(firstTankStart, secondTankStart, thirdTankStart)
+    var firsttankStartPosition = randomInt();
+    var secondtankStartPosition = randomInt();
+    var thirdtankStartPosition = randomInt();
+    tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition)
 
-    runTank(firstTankStart);
+    runTank(firsttankStartPosition);
             // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
     setTimeout(function(){
-        runTank(secondTankStart);  
+        runTank(secondtankStartPosition);  
             // takes the same but start .8 seconds later  3.5 -> 6.5 seconds
     }, 3500);
     setTimeout(function(){
-        runTank(thirdTankStart); 
+        runTank(thirdtankStartPosition); 
             // takes the same but start .8 seconds later  7.0 -> 10 seconds
     }, 7000);
 }
 
 function replay() {
-    runTank(tankStartArray[0]);
+    runTank(tankStartPositions[0]);
     
     setTimeout(function(){
-        runTank(tankStartArray[1]);  
+        runTank(tankStartPositions[1]);  
     }, 3500);
     setTimeout(function(){
-        runTank(tankStartArray[2]); 
+        runTank(tankStartPositions[2]); 
     }, 7000);
 }
 
@@ -280,7 +281,7 @@ function setHole(num) {
 }
 
 function fullTest() {
-    beginUserTimer();
+    //beginUserTimer();
     var text = " ";
     noRunningTanks = false;
 
@@ -295,33 +296,43 @@ function fullTest() {
         replay();
     }, 15000);
   
-    setTimeout(function(){
-        if (killTracker == 3) {
-            text += "You incapacitate all enemy vehicles: " + killTracker;
-        } else {
-            text += "You failed, you only incapacitate this many enemy vehicles: " + killTracker;   
-        }  
-        noRunningTanks = true;
-        alert(text);
-    }, 25010);    
+    // setTimeout(function(){
+    //     if (killTracker == 3) {
+    //         text += "You incapacitate all enemy vehicles: " + killTracker;
+    //     } else {
+    //         text += "You failed, you only incapacitate this many enemy vehicles: " + killTracker;   
+    //     }  
+    //     noRunningTanks = true;
+    //     alert(text);
+    // }, 25010);   
+
     // show results
 
 }
 
-function setBlueBox(num) {
-    setTimeout(function(){
-        var box = document.getElementById("GB" + num);
-        box.style.backgroundColor = "rgba(4, 4, 148, 0.685)";
-    }, 301);
-}
+function clearForBlue(end, movement) {
+    end += movement;
+    for (i = 0; i < 10; i++) {
+        end = end - movement;
+        document.getElementById("GB" + end).outerHTML = '<div id=' + 'GB' + end + ' class="gameBox" onclick="setMine(' + (end) + ')"> ' + (end + 1) + '</div>'; 
+        gameSpaceArray[end].boxType = "empty"; 
 
-function removeBlueBox() {
-    for(i = 0; i < tankTrackerArray.length; i++) {
-        var box = document.getElementById("GB" + tankTrackerArray[i]);        
-        box.style.backgroundColor = "transparent";
+        gameSpaceArray[end].direction = "none"; 
     }
 }
-    
+
+function clearInBlue(num) {    
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + (num + 1) + '</div>'; 
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(1, 76, 189, 0.603)"; 
+    gameSpaceArray[num].boxType = "empty"; 
+    gameSpaceArray[num].direction = "none";
+}
+
+function setBlueBox(num) {
+    var box = document.getElementById("GB" + num);    
+    box.style.backgroundColor = "rgba(1, 76, 189, 0.603)";            
+}
+
 function beginUserTimer() {
     var msTimer = 0;
     var sTimer = 0;    
@@ -353,13 +364,15 @@ function beginUserTimer() {
 }
 
 function setHint() {
-    var numOfTanks = tankStartArray.length;
+    var numOfTanks = tankStartPositions.length;
     var numOfIntersections = 0;
 
     LeastPossibleNumOfMines = Math.ceil(numOfTanks / 2);
     currentLeastNumOfMines = 0;
 
     var arr = tankTrackerArray;
+
+    testText = "";
 
     numOfIntersections = 0;
     for(i = 0; i < arr.length; i++) {  
@@ -385,7 +398,8 @@ function setHint() {
         for (i = 0; i < numOfIntersections; i++) {
             if(tankCount > 1) {
             tankCount = tankCount - 2;     
-            twoCount++;                
+            twoCount++;
+       
             }
             if (tankCount <= 0) {
                 tankCount = 0;
@@ -408,4 +422,24 @@ function getPositions() {
 
 function overlayOff() {
   document.getElementById("welcomeOverlay").style.display = "none";
+  document.getElementById("hintBox").style.display = "block";
+  document.getElementById("timeBox").style.display = "none";
+}
+
+
+
+function runGame() {
+    tankRuns = 5;
+    tankStartPositions = [];
+    killTracker = 0;
+
+    for (i = 0; i < tankRuns; i++) {
+        var position = randomInt();
+        tankStartPositions.push(position);
+    }
+
+    for (i = 0; i < tankRuns; i++) {
+        runTank(tankStartPositions[i]);
+    }
+
 }

@@ -17,9 +17,56 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,100,0,0.5);
+  background-color: rgba(8, 8, 8, 0.5);
   z-index: 2;
-  cursor: pointer;
+}
+
+#introBox {
+    height: 87%;
+    width: 600px;
+    background-color: rgb(0, 0, 0);
+    margin: 0 auto;
+    font-size: 40px;
+}
+
+#introImage {
+    background-color: white;
+    height: 400px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.buttonCustomMain {
+    text-align: center;
+    padding-top: 30px ;
+    color: white;
+    height: 80px;
+    width: 598px;
+    background-color: rgb(153, 0, 0);
+    border-color: black;
+    border-style: solid;
+}
+
+.buttonCustomMain:hover{
+    background-color: rgba(153, 0, 0, 0.582);
+    cursor: pointer;
+}
+
+.buttonCustom {
+    float: left;
+    padding-top: 30px ;
+    text-align: center;
+    height: 80px;
+    border-color: black;
+    border-style: solid;
+    width: 194px;
+    color: white;
+    background-color: green;
+}
+
+.buttonCustom:hover{
+    background-color: rgba(0, 128, 0, 0.678);
+    cursor: pointer;
 }
 
 .centeredRow {
@@ -40,8 +87,8 @@ button {
 #InfoPanelLeft{
     height: 500px;
     color: white;
-    background-color: rgb(17, 17, 17);
-    width: 200px;
+    background-color: rgba(1, 1, 51, 0.411);
+    width: 300px;
     margin-top: 50px;
     text-align: center;
 }
@@ -50,11 +97,12 @@ button {
     height: 500px;
     color: white;
     background-color: rgba(1, 1, 51, 0.411);
-    width: 200px;
+    width: 300px;
     margin-top: 50px;
 }
 
 #blackBox {
+    display: none;
     margin-top: 196px;
     padding-top: 25px;
     text-align: center;
@@ -74,6 +122,7 @@ button {
 }
 
 #hintBox{
+    display: none;
     margin-top: 200px;
     padding-top: 20px;
     padding-bottom: 0px;
@@ -103,6 +152,7 @@ button {
     background-color: rgba(255, 0, 0, 0.274);
     border-color: red;;
     border-width: 2px;
+    cursor: pointer;
 }
 
 .down {
@@ -171,6 +221,10 @@ button {
         width: 400px;
     }
 
+    #introBox {
+        width: 400px;        
+    }
+
     .gameBox {
         height: 38px;
         width: 38px;
@@ -202,6 +256,10 @@ button {
         border-color: #193947;
 
         height: 300px;
+        width: 300px;
+    }
+
+    #introBox {
         width: 300px;
     }
 
