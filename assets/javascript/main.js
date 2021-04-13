@@ -100,6 +100,7 @@ function setTank(num, directionString) {
     gameSpaceArray[num].direction = directionString;
 
     tankTrackerArray.push(num + 1);
+    setBlueBox(num);
     //console.log(gameSpaceArray[num].name + " | Index in Array: " + num + " | <div id= GB" + (num));
 }
 
@@ -129,7 +130,7 @@ function runTank(start) {
         killTracker++; 
     }
     
-///// Tank Moving Code /////
+    ///// Tank Moving Code /////
 
     if (divElement.direction == "goingRight") {
         var end = start + 9;
@@ -162,11 +163,11 @@ function runTank(start) {
     }
 }
 
-function runMovement(start, end, plusNum, directionVariable) {
+function runMovement(start, end, movement, directionVariable) {
         var timer = setInterval(function() {
 
         clearBox(start);
-        start = start + plusNum;
+        start = start + movement;
         setTankOrExplosionOrCrash(start, directionVariable); 
         
         if (start == end || gameSpaceArray[start].boxType == "explosion" || gameSpaceArray[start].boxType == "hole") {
@@ -403,4 +404,8 @@ function getPositions() {
         var text = text + "" + tankTrackerArray[i] + "<br>";     
     }
     document.getElementById("infoDetails").innerHTML = text;
+}
+
+function overlayOff() {
+  document.getElementById("welcomeOverlay").style.display = "none";
 }

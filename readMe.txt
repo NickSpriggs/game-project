@@ -126,3 +126,10 @@ function createMine(GBi) {
 7/2 = 3.5 , 3 + 1 = 4
 
 3/2 = 1.5, 1+ 1 = 2
+
+
+
+       <div>Invisible Home Screen (Tint): Rules / (Easy/Medium/Expert) </div>
+    
+        <div>Invisible Watch (Tint) Closely / Go Screen</div>
+        <div>Invisible AfterScreen (Tint):  Lose (none) / Partial lose (some) / partial win (all but with too many mines) / perfect win / Rules / (Easy/Medium/Expert)  </div>
