@@ -369,23 +369,31 @@ function setHint() {
         }
     }
 
-    for(i = 0; i < numOfIntersections; i++) {
+    //numOfIntersections = ;
+    //numOfTanks = ;
 
-        if((i * 2) + 1 == numOfTanks) {
-            currentLeastNumOfMines = (i + 1);
-        }
+    var oneCount = 0;
+    var twoCount = 0;
+    var tankCount = numOfTanks;
 
-        if((i * 2) == numOfTanks) {
-            currentLeastNumOfMines = i;
+    if (numOfIntersections == 0) {
+        currentLeastNumOfMines = tankCount;
+    } else if (numOfIntersections > tankCount){
+        currentLeastNumOfMines = Math.ceil(tankCount / 2);
+    } else {
+        for (i = 0; i < numOfIntersections; i++) {
+            if(tankCount > 1) {
+            tankCount = tankCount - 2;     
+            twoCount++;                
+            }
+            if (tankCount <= 0) {
+                tankCount = 0;
+            }
         }
-
-        if(i == numOfIntersections - 1 || currentLeastNumOfMines == 0) {
-            var remainder = numOfTanks - (numOfIntersections * 2);
-            currentLeastNumOfMines = numOfIntersections + remainder;
-        }
+        oneCount =  numOfTanks - (twoCount * 2);
+        currentLeastNumOfMines = oneCount + twoCount;
     }
-
-
+    
     document.getElementById("infoDetails").innerHTML = "Least Number of Mines: " + currentLeastNumOfMines;
 }
 
