@@ -120,3 +120,9 @@ function createMine(GBi) {
 
 // need function that replays first loop. 
 // need function that determines the fewest number of mines neccesary to intercept every path
+
+5/2 = 2.5 , 2 + 1 = 3
+
+7/2 = 3.5 , 3 + 1 = 4
+
+3/2 = 1.5, 1+ 1 = 2

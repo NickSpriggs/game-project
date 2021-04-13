@@ -9,15 +9,26 @@
 
     <title>CraftMine</title>
 </head>
-<!-- <body style="background-image: url(/assets/images/camo.jpg); background-size: 35%;"> -->
-<body>
+<body style="background-image: url(/assets/images/camo.jpg); background-size: 35%;">
     <div class="container-fluid">
 
-        <div id="gameSpace" class="map"></div>      
+        <div class="centeredRow">
+            <div id="InfoPanelLeft">
+                <div id="hintBox">Hint: ???</div>
+            </div>
+            <div id="gameSpace" class="map"></div>  
+            <div id="InfoPanelRight">
+                <div id="blackBox">
+                    <div id="timeBox">Timer</div>
+                </div>
+            </div>
+        </div>
 
         <button onclick="fullTest()">Full Test</button>
         <button onclick="clearAll()">Clear Board!</button>        
         <button onclick="getMoreInfo()">Live Update</button>
+        <button onclick="setHint()">Hint</button>
+        <button onclick="getPositions()">Get Positions Array</button>
         <div id="infoDetails"></div>
 
     </div>

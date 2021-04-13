@@ -4,8 +4,10 @@ const goingRight = [11,21,31,41,51,61,71,81];
 const goingUp = [92,93,94,95,96,97,98,99];
 const goingDown = [2,3,4,5,6,7,8,9];
 var gameSpaceArray = [];
+var tankStartArray = [];
 var tankTrackerArray = [];
 var killTracker = 0;
+var noRunningTanks = true;
 
 window.onload = function(){
     var gameSpace = document.getElementById("gameSpace");
@@ -97,9 +99,7 @@ function setTank(num, directionString) {
     gameSpaceArray[num].boxType = "blueTank"; 
     gameSpaceArray[num].direction = directionString;
 
-
-
-    tankTrackerArray.push(gameSpaceArray[num].name + " | Index: " + num);
+    tankTrackerArray.push(num + 1);
     //console.log(gameSpaceArray[num].name + " | Index in Array: " + num + " | <div id= GB" + (num));
 }
 
@@ -123,7 +123,11 @@ function runTank(start) {
     start = start - 1;
     var divElement = gameSpaceArray[start];
 
-    setTankOrExplosion(start, directionVariable);
+    setTankOrExplosionOrCrash(start, directionVariable);
+
+    if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
+        killTracker++; 
+    }
     
 ///// Tank Moving Code /////
 
@@ -160,29 +164,25 @@ function runTank(start) {
 
 function runMovement(start, end, plusNum, directionVariable) {
         var timer = setInterval(function() {
-            
+
         clearBox(start);
         start = start + plusNum;
-        setTankOrExplosion(start, directionVariable); 
+        setTankOrExplosionOrCrash(start, directionVariable); 
         
         if (start == end || gameSpaceArray[start].boxType == "explosion" || gameSpaceArray[start].boxType == "hole") {
 
             clearInterval(timer);
 
-            if (start == end || gameSpaceArray[start].boxType == "explosion") {
+            if (start == end) {
                 setTimeout(function() {
                 clearBox(start);
+                
                 }, 300);
-            }
-            
-            if (gameSpaceArray[start].boxType == "hole") {
-                setCrash(start);         
             }
 
             if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
                 killTracker++; 
-                console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
-                console.log("Explosion/ mHole KillTracker: " + killTracker);  
+                //console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
             }
         }
     } , 300);
@@ -201,13 +201,13 @@ function getMoreInfo() {
 }
 
 function makeThreeTanks() {
-    tankTrackerArray = [];
+    tankStartArray = [];
     killTracker = 0;
 
     var firstTankStart = randomInt();
     var secondTankStart = randomInt();
     var thirdTankStart = randomInt();
-    tankTrackerArray.push(firstTankStart, secondTankStart, thirdTankStart)
+    tankStartArray.push(firstTankStart, secondTankStart, thirdTankStart)
 
     runTank(firstTankStart);
             // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
@@ -222,19 +222,17 @@ function makeThreeTanks() {
 }
 
 function replay() {
-    runTank(tankTrackerArray[0]);
+    runTank(tankStartArray[0]);
     
     setTimeout(function(){
-        runTank(tankTrackerArray[1]);  
+        runTank(tankStartArray[1]);  
     }, 3500);
     setTimeout(function(){
-        runTank(tankTrackerArray[2]); 
+        runTank(tankStartArray[2]); 
     }, 7000);
 }
 
 function setMine(num) {
-    var noRunningTanks = checkBoard();
-
     if (noRunningTanks == true) {
         document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine" onclick="clearBoxBeforeTankRun(' + (num) + ')">'  + (num + 1) + '</div>'; 
         gameSpaceArray[num].boxType = "landMine";         
@@ -242,22 +240,9 @@ function setMine(num) {
 }
 
 function clearBoxBeforeTankRun(num) {
-    var noRunningTanks = checkBoard();
-
     if (noRunningTanks == true) {
         clearBox(num);
     }    
-}
-
-function checkBoard() {
-    var noRunningTanks = true;
-
-    for (i=0; i < 100; i++) {
-        if (gameSpaceArray[i].boxType == "blueTank") {
-            noRunningTanks = false;
-        }
-    }
-    return noRunningTanks;
 }
 
 function setExplosion(num) {
@@ -271,19 +256,20 @@ function setExplosion(num) {
 
 function setCrash(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox crash"> ' + (num + 1) + '</div>'; 
-    gameSpaceArray[num].boxType = "crash"; 
     
     setTimeout(function(){
         setHole(num);
     }, 500)
 }
 
-function setTankOrExplosion(num, directionString) {
+function setTankOrExplosionOrCrash(num, directionString) {
     //console.log("Box #" + (num + 1) + "| Array Index: " + num + " | Box Type: "  + gameSpaceArray[num].boxType);
     if (gameSpaceArray[num].boxType == "empty") {
         setTank(num, directionString);        
     } else if (gameSpaceArray[num].boxType == "landMine") {
         setExplosion(num);        
+    } else if (gameSpaceArray[num].boxType == "hole") {
+        setCrash(num);         
     }
 }
 
@@ -293,11 +279,18 @@ function setHole(num) {
 }
 
 function fullTest() {
+    beginUserTimer();
     var text = " ";
+    noRunningTanks = false;
+
     makeThreeTanks();
-//  Takes 10 seconds
+//  Takes 10 seconds to fully run three tanks
+    setTimeout(function(){
+        noRunningTanks = true;
+    }, 10000);
 
     setTimeout(function(){
+        noRunningTanks = false;
         replay();
     }, 15000);
   
@@ -307,6 +300,99 @@ function fullTest() {
         } else {
             text += "You failed, you only incapacitate this many enemy vehicles: " + killTracker;   
         }  
+        noRunningTanks = true;
         alert(text);
-    }, 25000);    
+    }, 25010);    
+    // show results
+
+}
+
+function setBlueBox(num) {
+    setTimeout(function(){
+        var box = document.getElementById("GB" + num);
+        box.style.backgroundColor = "rgba(4, 4, 148, 0.685)";
+    }, 301);
+}
+
+function removeBlueBox() {
+    for(i = 0; i < tankTrackerArray.length; i++) {
+        var box = document.getElementById("GB" + tankTrackerArray[i]);        
+        box.style.backgroundColor = "transparent";
+    }
+}
+    
+function beginUserTimer() {
+    var msTimer = 0;
+    var sTimer = 0;    
+    var timeNotationWithZero = ":0";
+    var timeNotationWithout = ":"; 
+    var timeNotation = "";
+
+    document.getElementById("timeBox").innerHTML = sTimer + timeNotationWithZero + msTimer;
+
+    mPublicTimer = setInterval(function(){
+        msTimer++;
+        if(msTimer == 100) {
+            sTimer++;
+            msTimer = 0;
+        }
+        if(msTimer == 10) {
+            timeNotation = timeNotationWithout;
+        }
+        if(msTimer <= 1) {
+            timeNotation = timeNotationWithZero;
+        }
+
+        document.getElementById("timeBox").innerHTML = sTimer + timeNotation + msTimer;
+
+        if(sTimer == 25) {
+            clearInterval(mPublicTimer);
+        }
+    }, 10)
+}
+
+function setHint() {
+    var numOfTanks = tankStartArray.length;
+    var numOfIntersections = 0;
+
+    LeastPossibleNumOfMines = Math.ceil(numOfTanks / 2);
+    currentLeastNumOfMines = 0;
+
+    var arr = tankTrackerArray;
+
+    numOfIntersections = 0;
+    for(i = 0; i < arr.length; i++) {  
+        for(j = i + 1; j < arr.length; j++) {  
+            if(arr[i] == arr[j]) { 
+            numOfIntersections++;
+            }
+        }
+    }
+
+    for(i = 0; i < numOfIntersections; i++) {
+
+        if((i * 2) + 1 == numOfTanks) {
+            currentLeastNumOfMines = (i + 1);
+        }
+
+        if((i * 2) == numOfTanks) {
+            currentLeastNumOfMines = i;
+        }
+
+        if(i == numOfIntersections - 1 || currentLeastNumOfMines == 0) {
+            var remainder = numOfTanks - (numOfIntersections * 2);
+            currentLeastNumOfMines = numOfIntersections + remainder;
+        }
+    }
+
+
+    document.getElementById("infoDetails").innerHTML = "Least Number of Mines: " + currentLeastNumOfMines;
+}
+
+function getPositions() {
+    var text = "";
+    for (i = 0; i <  tankTrackerArray.length; i++) {
+        var text = text + "" + tankTrackerArray[i] + "<br>";     
+    }
+    document.getElementById("infoDetails").innerHTML = text;
 }
