@@ -226,6 +226,10 @@ button {
         width: 500px;
     }
 
+    #importantDetails {
+        background-image: url(/assets/images/LOGO_smaller.png);
+    }
+
     #introBox {
         width: 400px;        
     }
@@ -277,6 +281,10 @@ button {
 
         height: 400px;
         width: 400px;
+    }
+
+    #importantDetails {
+        background-image: url(/assets/images/LOGO_smallest.png);
     }
 
     #introBox {
