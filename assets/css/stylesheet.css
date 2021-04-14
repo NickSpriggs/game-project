@@ -30,7 +30,8 @@ button {
 }
 
 #importantDetails {
-    background-color: white;
+    background-image: url(/assets/images/LOGO.png);
+    background-size: cover;
     height: 430px;
     border-style: solid;
     border-width: 1px;
