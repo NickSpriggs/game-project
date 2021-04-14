@@ -16,7 +16,7 @@ window.onload = function(){
     for (i=0; i <  100; i++) {
 
         var boxNumber = (i + 1);
-        var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + (boxNumber) + '</div>'; 
+        var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + '</div>'; 
         //var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox">' + (i + 1) + '</div>'; 
         gameSpace.innerHTML += boxDiv;
 
@@ -94,7 +94,7 @@ function rotateDirection(num, direction) {
 }
 
 function setTank(num, directionString) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + (num + 1) + '</div>';
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox tankBlue"> ' + '</div>';
     rotateDirection(num, directionString);  
 
     gameSpaceArray[num].boxType = "blueTank"; 
@@ -106,7 +106,7 @@ function setTank(num, directionString) {
 }
 
 function clearBox(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + (num + 1) + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + '</div>'; 
     gameSpaceArray[num].boxType = "empty"; 
 
     gameSpaceArray[num].direction = "none";
@@ -237,7 +237,7 @@ function replay() {
 
 function setMine(num) {
     if (noRunningTanks == true) {
-        document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine" onclick="clearBoxBeforeTankRun(' + (num) + ')">'  + (num + 1) + '</div>'; 
+        document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine" onclick="clearBoxBeforeTankRun(' + (num) + ')">'  + '</div>'; 
         gameSpaceArray[num].boxType = "landMine";
         mineCounter++;         
     }
@@ -251,8 +251,9 @@ function clearBoxBeforeTankRun(num) {
 }
 
 function setExplosion(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + (num + 1) + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + '</div>'; 
     gameSpaceArray[num].boxType = "explosion"; 
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; // red death
     
     setTimeout(function(){
         setHole(num);
@@ -260,7 +261,7 @@ function setExplosion(num) {
 }
 
 function setCrash(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox crash"> ' + (num + 1) + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox crash"> ' + '</div>'; 
     
     setTimeout(function(){
         setHole(num);
@@ -279,18 +280,19 @@ function setTankOrExplosionOrCrash(num, directionString) {
 }
 
 function setHole(num) {
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + (num + 1) + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + '</div>'; 
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; // red death
     gameSpaceArray[num].boxType = "hole";         
 }
 
 function showResults() { 
-    var text = "";
+    var score = "";
     var minimum = getMinimum();
     var numOfMinesUsed;
     var numOfTanks = tankStartPositions.length;
 
     clearAll();
-    document.getElementById("hintBox").innerHTML = " ";
+    document.getElementById("hintBox").innerHTML = "Hint";
     document.getElementById("hintBox").style.display = "none";
     document.getElementById("blackBox").style.display = "none";
     document.getElementById("introBox").style.backgroundColor = "rgb(0, 0, 0)";
@@ -305,22 +307,22 @@ function showResults() {
     document.getElementById("welcomeOverlay").style.display = "block";
 
     if (killTracker == numOfTanks && numOfMinesUsed == minimum) {
-        text += "Three Stars";
+        score += "Three Stars";
     } else if (killTracker == numOfTanks && numOfMinesUsed > minimum) {
-        text += "Two Stars";
+        score += "Two Stars";
     } else if (killTracker < numOfTanks && killTracker > 0) {
-        text += "One Stars";   
+        score += "One Stars";   
     } else if (killTracker == 0) {
-        text += "Zero Stars";
+        score += "Zero Stars";
     }
-    document.getElementById("importantDetails").innerHTML = text;
+    document.getElementById("importantDetails").innerHTML = score;
 }
 
 function clearForBlue(end, movement) {
     end += movement;
     for (i = 0; i < 10; i++) {
         end = end - movement;
-        document.getElementById("GB" + end).outerHTML = '<div id=' + 'GB' + end + ' class="gameBox" onclick="setMine(' + (end) + ')"> ' + (end + 1) + '</div>'; 
+        document.getElementById("GB" + end).outerHTML = '<div id=' + 'GB' + end + ' class="gameBox" onclick="setMine(' + (end) + ')"> ' + '</div>'; 
         gameSpaceArray[end].boxType = "empty"; 
 
         gameSpaceArray[end].direction = "none"; 
@@ -328,7 +330,7 @@ function clearForBlue(end, movement) {
 }
 
 function clearInBlue(num) {    
-    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + (num + 1) + '</div>'; 
+    document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox" onclick="setMine(' + (num) + ')"> ' + '</div>'; 
     document.getElementById("GB" + num).style.backgroundColor = "rgba(1, 76, 189, 0.603)"; 
     gameSpaceArray[num].boxType = "empty"; 
     gameSpaceArray[num].direction = "none";
@@ -371,7 +373,7 @@ function beginUserTimer() {
 
 function setHint() {
     var minimum = getMinimum();
-    var text =  minimum + " Mines Required";
+    var text =  "Mines: " + minimum;
     
     document.getElementById("hintBox").innerHTML = text;
 }
@@ -435,7 +437,7 @@ function getPositions() {
 function overlayOff() {
   document.getElementById("welcomeOverlay").style.display = "none";
   document.getElementById("hintBox").style.display = "block";
-  document.getElementById("timeBox").style.display = "none";
+  document.getElementById("blackBox").style.display = "block";
 }
 
 
@@ -514,12 +516,13 @@ function runGame(difficulty) {
 function preGame() {
 
     document.getElementById("introBox").style.backgroundColor = "rgba(255, 0, 0, 0.300)";
-    document.getElementById("introBox").style.fontcolor = "blue";
+    //document.getElementById("introBox").style.backgroundColor = "transparent";
+    document.getElementById("introBox").style.fontcolor = "red";
     document.getElementById("introBox").style.height = "600px";
     document.getElementById("introBox").style.textAlign = "center";
     document.getElementById("introBox").style.fontSize = "500px";
 
-    document.getElementById("introBox").innerText = 1;    
+    document.getElementById("introBox").innerText = 3;    
     document.getElementById("welcomeOverlay").style.backgroundColor = "transparent";
     document.getElementById("welcomeOverlay").style.display = "block";
 

@@ -22,17 +22,16 @@ button {
 }
 
 #introBox {
-    height: 90.5%;
+    height: 90%;
     width: 600px;
     background-color: rgb(0, 0, 0);
     margin: 0 auto;
-    margin-top: 9px;
     font-size: 40px;
 }
 
 #importantDetails {
     background-color: white;
-    height: 400px;
+    height: 430px;
     border-style: solid;
     border-width: 1px;
 }
@@ -66,13 +65,14 @@ button {
 }
 
 .buttonCustom:hover{
-    background-color: rgba(0, 128, 0, 0.678);
+    background-color: rgb(0, 70, 0);
     cursor: pointer;
 }
 
 .centeredRow {
     width: 100%;
     display: flex;
+    padding-top: 50px;
     justify-content: center;
 }
 
@@ -88,7 +88,8 @@ button {
 #InfoPanelLeft{
     height: 500px;
     color: white;
-    background-color: rgba(1, 1, 51, 0.411);
+    background-color: hsla(0,0%,90%,1);
+    background-image: linear-gradient(-45deg, hsla(0,0%,0%,0), hsla(0,0%,0%,.05) );
     width: 300px;
     margin-top: 50px;
     text-align: center;
@@ -97,7 +98,8 @@ button {
 #InfoPanelRight{
     height: 500px;
     color: white;
-    background-color: rgba(1, 1, 51, 0.411);
+    background-color: hsla(0,0%,90%,1);
+    background-image: linear-gradient(-45deg, hsla(0,0%,0%,0), hsla(0,0%,0%,.05) );
     width: 300px;
     margin-top: 50px;
 }
@@ -131,7 +133,7 @@ button {
     height: 80px;
     width: 100%;
     background-color: black;
-    font-size: 20px;    
+    font-size: 50px;   
 }
 
 
@@ -208,7 +210,61 @@ button {
 
 /*   Scalability */
 
-@media only screen and (max-width: 1020px) {
+@media only screen and (max-width: 1230px) {
+
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 500px;
+        width: 500px;
+    }
+
+    #introBox {
+        width: 400px;        
+    }
+
+    .gameBox {
+        height: 48px;
+        width: 48px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 46px;
+        width: 46px;
+        background-color: rgba(255, 0, 0, 0.274);
+        border-color: red;
+        border-width: 2px;
+
+    }
+    
+    #InfoPanelLeft {
+        margin-left: 30px;
+        margin-top: 15px;
+        width: 5%;
+        height: 400px;
+    }
+
+    #InfoPanelRight {
+        margin-right: 30px;
+        margin-top: 15px;
+        width: 5%;
+        height: 400px;
+    }
+}
+
+@media only screen and (max-width: 645px) {
     #gameSpace {
         margin-top: 10px;
         margin-left: auto;
@@ -223,7 +279,7 @@ button {
     }
 
     #introBox {
-        width: 400px;        
+        width: 300px;
     }
 
     .gameBox {
@@ -241,12 +297,12 @@ button {
         height: 36px;
         width: 36px;
         background-color: rgba(255, 0, 0, 0.274);
-        border-color: red;
+        border-color: red;;
         border-width: 2px;
     }
 }
 
-@media only screen and (max-width: 825px) {
+@media only screen and (max-width: 535px) {
     #gameSpace {
         margin-top: 10px;
         margin-left: auto;
@@ -278,6 +334,44 @@ button {
     .gameBox:hover {
         height: 26px;
         width: 26px;
+        background-color: rgba(255, 0, 0, 0.274);
+        border-color: red;;
+        border-width: 2px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 200px;
+        width: 200px;
+    }
+
+    #introBox {
+        width: 300px;
+    }
+
+    .gameBox {
+        height: 18px;
+        width: 18px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 16px;
+        width: 16px;
         background-color: rgba(255, 0, 0, 0.274);
         border-color: red;;
         border-width: 2px;
