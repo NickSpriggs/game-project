@@ -33,8 +33,16 @@ button {
     background-image: url(/assets/images/LOGO.png);
     background-size: cover;
     height: 430px;
+    width: 100%;
     border-style: solid;
     border-width: 1px;
+}
+
+#buttonHolder {
+    width: 100%;
+    justify-content: center;
+    background-color: black;
+    height: 230px;
 }
 
 .buttonCustomMain {
@@ -42,7 +50,6 @@ button {
     padding-top: 30px ;
     color: white;
     height: 80px;
-    width: 598px;
     background-color: rgb(153, 0, 0);
     border-color: black;
     border-style: solid;
@@ -60,7 +67,7 @@ button {
     height: 80px;
     border-color: black;
     border-style: solid;
-    width: 194px;
+    width: 32%;
     color: white;
     background-color: green;
 }
@@ -234,6 +241,11 @@ button {
         width: 400px;        
     }
 
+    .buttonCustom {
+        border-right-width: 1px;
+        font-size: 30px;
+    }
+
     .gameBox {
         height: 48px;
         width: 48px;
@@ -289,6 +301,10 @@ button {
 
     #introBox {
         width: 300px;
+    }
+
+    .buttonCustom {
+        font-size: 26px;
     }
 
     .gameBox {
