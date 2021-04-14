@@ -516,7 +516,7 @@ function runGame(difficulty) {
 function preGame() {
 
     document.getElementById("introBox").style.backgroundColor = "transparent";
-    document.getElementById("introBox").style.fontcolor = "red";
+    document.getElementById("introBox").style.color = "red";
 //    document.getElementById("introBox").style.height = "600px";
     document.getElementById("introBox").style.textAlign = "center";
     document.getElementById("introBox").style.fontSize = "500px";
@@ -526,25 +526,24 @@ function preGame() {
     document.getElementById("welcomeOverlay").style.display = "block";
 
     setTimeout(function(){
-        document.getElementById("welcomeOverlay").style.display = "none"
+        document.getElementById("introBox").innerText = "";
     }, 500);
 
     setTimeout(function(){
         document.getElementById("introBox").innerText = 2; 
-        document.getElementById("welcomeOverlay").style.display = "block";
     },  950);
 
     setTimeout(function(){
-        document.getElementById("welcomeOverlay").style.display = "none"
+        document.getElementById("introBox").innerText = "";
     }, 1610);
 
     setTimeout(function(){
         document.getElementById("introBox").innerText = 1; 
-        document.getElementById("welcomeOverlay").style.display = "block";
     },  2100);
 
     setTimeout(function(){
         document.getElementById("introBox").innerText = " ";
+        document.getElementById("introBox").style.color = "black";
         document.getElementById("introBox").style.backgroundColor = "transparent"; // invisible gaurd
     }, 2800);     
 }
