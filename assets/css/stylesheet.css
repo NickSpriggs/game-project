@@ -131,8 +131,16 @@ button {
     width: 80%;
     height: 50px;
     background-color: white;
-    border-style: ridge;   
+    border-style: ridge;  
+    font-size: 20px;
+    padding-top: 22px; 
     border-color: black;
+    text-align: center;
+}
+
+.green {
+    background-color: rgb(6, 73, 6);
+    color: white;
 }
 
 .gameBox {

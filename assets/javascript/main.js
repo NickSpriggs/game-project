@@ -12,8 +12,8 @@ var noRunningTanks = true;
 
 function setGameBoxes () {
 //window.onload = function(){
-    document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer"></div></div>';
-    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker">Number of Tanks</div><div class="gameTracker">Fewest Number of Mines To Win</div><div class="gameTracker">Number of Tanks Destroyed</div></div>';   
+    document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer">Timer</div></div>';
+    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker">Fewest Number of Mines To Win</div><div class="gameTracker">Number of Tanks Destroyed</div></div>';   
     document.getElementById("gameSpace").outerHTML = '<div id="gameSpace" class="map"></div>';
     var gameSpace = document.getElementById("gameSpace");
 
@@ -506,6 +506,7 @@ function runGameEasy() {
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
     document.getElementById("blinkingOverlay").style.display = "block"
+    document.getElementById("tankCount").innerText = "3 Tanks";
 
     setTimeout(function() {
         runGame("easy");
@@ -517,6 +518,7 @@ function runGameMedium() {
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
     document.getElementById("blinkingOverlay").style.display = "block"
+    document.getElementById("tankCount").innerText = "4 Tanks";
 
     setTimeout(function() {
         runGame("medium");
@@ -528,6 +530,7 @@ function runGameHard() {
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
     document.getElementById("blinkingOverlay").style.display = "block"
+    document.getElementById("tankCount").innerText = "5 Tanks";
 
     setTimeout(function() {
         runGame("hard");
