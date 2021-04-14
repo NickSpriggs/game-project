@@ -10,7 +10,9 @@ var tankTrackerArray = [];
 var killTracker = 0;
 var noRunningTanks = true;
 
-window.onload = function(){
+ function setGameBoxes () {
+//window.onload = function(){
+    document.getElementById("gameSpace").outerHTML = '<div id="gameSpace" class="map"></div>';
     var gameSpace = document.getElementById("gameSpace");
 
     for (i=0; i <  100; i++) {
@@ -292,9 +294,6 @@ function showResults() {
     var numOfTanks = tankStartPositions.length;
 
     clearAll();
-    document.getElementById("hintBox").innerHTML = "Hint";
-    document.getElementById("hintBox").style.display = "none";
-    document.getElementById("blackBox").style.display = "none";
     document.getElementById("introBox").style.backgroundColor = "rgb(0, 0, 0)";
     document.getElementById("introBox").style.height = "90.5%";
     document.getElementById("introBox").style.textAlign = "center";
@@ -348,7 +347,7 @@ function beginUserTimer() {
     var timeNotationWithout = ":"; 
     var timeNotation = "";
 
-    document.getElementById("timeBox").innerHTML = sTimer + timeNotationWithZero + msTimer;
+    //document.getElementById("timeBox").innerHTML = sTimer + timeNotationWithZero + msTimer;
 
     mPublicTimer = setInterval(function(){
         msTimer++;
@@ -363,7 +362,7 @@ function beginUserTimer() {
             timeNotation = timeNotationWithZero;
         }
 
-        document.getElementById("timeBox").innerHTML = sTimer + timeNotation + msTimer;
+        //document.getElementById("timeBox").innerHTML = sTimer + timeNotation + msTimer;
 
         if(sTimer == 25) {
             clearInterval(mPublicTimer);
@@ -375,7 +374,6 @@ function setHint() {
     var minimum = getMinimum();
     var text =  "Mines: " + minimum;
     
-    document.getElementById("hintBox").innerHTML = text;
 }
 
 function getMinimum() {
@@ -436,8 +434,6 @@ function getPositions() {
 
 function overlayOff() {
   document.getElementById("welcomeOverlay").style.display = "none";
-  document.getElementById("hintBox").style.display = "block";
-  document.getElementById("blackBox").style.display = "block";
 }
 
 
@@ -515,10 +511,9 @@ function runGame(difficulty) {
 
 function preGame() {
 
-    document.getElementById("introBox").style.backgroundColor = "rgba(255, 0, 0, 0.300)";
     //document.getElementById("introBox").style.backgroundColor = "transparent";
     document.getElementById("introBox").style.fontcolor = "red";
-    document.getElementById("introBox").style.height = "600px";
+//    document.getElementById("introBox").style.height = "600px";
     document.getElementById("introBox").style.textAlign = "center";
     document.getElementById("introBox").style.fontSize = "500px";
 
@@ -545,14 +540,13 @@ function preGame() {
     },  2100);
 
     setTimeout(function(){
-        document.getElementById("hintBox").style.display = "block";
-        document.getElementById("blackBox").style.display = "block";
         document.getElementById("introBox").innerText = " ";
         document.getElementById("introBox").style.backgroundColor = "transparent"; // invisible gaurd
     }, 2800);     
 }
 
 function runGameEasy() {
+    setGameBoxes();
     preGame();
 
     setTimeout(function() {
@@ -561,6 +555,7 @@ function runGameEasy() {
 }
 
 function runGameMedium() {
+    setGameBoxes();
     preGame();
 
     setTimeout(function() {
@@ -570,6 +565,7 @@ function runGameMedium() {
 
 function runGameHard() {
     preGame();
+    setGameBoxes();
 
     setTimeout(function() {
         runGame("hard");
