@@ -473,7 +473,7 @@ function runGame(difficulty) {
         tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition)        
     }
 
-    var timeForAllPaths = (tankPaths * 3200) + 1000;
+    var timeForAllPaths = (tankPaths * 3000) + 1000;
     var timeForPlaying = timeForAllPaths + 10000;
     noRunningTanks = false;
 
@@ -515,7 +515,7 @@ function runGame(difficulty) {
 
 function preGame() {
 
-    //document.getElementById("introBox").style.backgroundColor = "transparent";
+    document.getElementById("introBox").style.backgroundColor = "transparent";
     document.getElementById("introBox").style.fontcolor = "red";
 //    document.getElementById("introBox").style.height = "600px";
     document.getElementById("introBox").style.textAlign = "center";
