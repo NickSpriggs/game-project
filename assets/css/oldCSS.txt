@@ -1,0 +1,172 @@
+@media only screen and (max-width: 740px) {
+
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 500px;
+        width: 500px;
+    }
+
+    #importantDetails {
+        background-image: url(/assets/images/LOGO_smaller.png);
+    }
+
+    #introBox {
+        width: 400px;        
+    }
+
+    .buttonCustom {
+        width: 31.8%;
+        font-size: 30px;
+    }
+
+    .gameBox {
+        height: 48px;
+        width: 48px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 46px;
+        width: 46px;
+        background-color: rgba(255, 0, 0, 0.274);
+        border-color: red;
+        border-width: 2px;
+
+    }
+
+}
+
+@media only screen and (max-width: 560px) {
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 400px;
+        width: 400px;
+    }
+
+    #importantDetails {
+        background-image: url(/assets/images/LOGO_smallest.png);
+    }
+
+    #introBox {
+        width: 300px;
+    }
+
+    .buttonCustom {
+        width: 31.2%;
+        font-size: 26px;
+    }
+
+    .gameBox {
+        height: 38px;
+        width: 38px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 36px;
+        width: 36px;
+        background-color: rgba(255, 0, 0, 0.274);
+        border-color: red;;
+        border-width: 2px;
+    }
+}
+
+@media only screen and (max-width: 455px) {
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 300px;
+        width: 300px;
+    }
+
+    #introBox {
+        width: 300px;
+    }
+
+    .gameBox {
+        height: 28px;
+        width: 28px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 26px;
+        width: 26px;
+        background-color: rgba(255, 0, 0, 0.274);
+        border-color: red;;
+        border-width: 2px;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    #gameSpace {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+
+        border-width: 0px;
+        border-style: outset;
+        border-color: #193947;
+
+        height: 200px;
+        width: 200px;
+    }
+
+    #introBox {
+        width: 300px;
+    }
+
+    .gameBox {
+        height: 18px;
+        width: 18px;
+        
+        float: left;
+    
+        border-width: 1px;
+        border-style: solid;
+        border-color: #193947;
+    }
+
+    .gameBox:hover {
+        height: 16px;
+        width: 16px;
+        background-color: rgba(255, 0, 0, 0.274);
+        border-color: red;;
+        border-width: 2px;
+    }
+}
