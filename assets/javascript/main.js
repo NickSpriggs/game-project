@@ -205,27 +205,7 @@ function getMoreInfo() {
     }, 250)
 }
 
-function makeThreeTanks() {
-    tankStartPositions = [];
-    killTracker = 0;
-
-    var firsttankStartPosition = randomInt();
-    var secondtankStartPosition = randomInt();
-    var thirdtankStartPosition = randomInt();
-    tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition)
-
-    runTank(firsttankStartPosition);
-            // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
-    setTimeout(function(){
-        runTank(secondtankStartPosition);  
-            // takes the same but start .8 seconds later  3.5 -> 6.5 seconds
-    }, 3500);
-    setTimeout(function(){
-        runTank(thirdtankStartPosition); 
-            // takes the same but start .8 seconds later  7.0 -> 10 seconds
-    }, 7000);
-}
-
+// edit replayer
 function replay() {
     runTank(tankStartPositions[0]);
     
@@ -236,6 +216,27 @@ function replay() {
         runTank(tankStartPositions[2]); 
     }, 7000);
 }
+
+function replayTwo(timeForAllPaths) {
+    runTank(tankStartPositions[0]);
+    // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
+
+    var currentTime = 3400;
+    var nextTank = 1;
+
+    var tankTime = setInterval(function(){
+        runTank(tankStartPositions[nextTank]);
+        nextTank++;
+        currentTime = currentTime + 3500;        
+        if (currentTime > timeForAllPaths) {
+            clearInterval(tankTime);
+        }
+    }, 3500); // about half a second after the previous finishes
+    //  Takes 10 seconds to fully run three tanks
+}
+
+
+
 
 function setMine(num) {
     if (noRunningTanks == true) {
@@ -264,6 +265,7 @@ function setExplosion(num) {
 
 function setCrash(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox crash"> ' + '</div>'; 
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; // red death
     
     setTimeout(function(){
         setHole(num);
@@ -341,31 +343,32 @@ function setBlueBox(num) {
 }
 
 function beginUserTimer() {
-    var msTimer = 0;
-    var sTimer = 0;    
     var timeNotationWithZero = ":0";
     var timeNotationWithout = ":"; 
     var timeNotation = "";
 
-    //document.getElementById("timeBox").innerHTML = sTimer + timeNotationWithZero + msTimer;
+    var sTimer = 9; 
+    var msTimer = 99;
+    document.getElementById("gameTimer").innerHTML = sTimer + timeNotationWithout + "00";
 
-    mPublicTimer = setInterval(function(){
-        msTimer++;
-        if(msTimer == 100) {
-            sTimer++;
-            msTimer = 0;
+    mPublicTimer = setInterval(function() {
+        if(msTimer == 0) {
+            sTimer--;
+            msTimer = 99;
         }
-        if(msTimer == 10) {
+        if(msTimer > 10) {
             timeNotation = timeNotationWithout;
         }
-        if(msTimer <= 1) {
+        if(msTimer < 10) {
             timeNotation = timeNotationWithZero;
         }
 
-        //document.getElementById("timeBox").innerHTML = sTimer + timeNotation + msTimer;
+        document.getElementById("gameTimer").innerHTML = sTimer + timeNotation + msTimer;
+        msTimer--;
 
-        if(sTimer == 25) {
+        if(sTimer == 0 && msTimer == 0) {
             clearInterval(mPublicTimer);
+            document.getElementById("gameTimer").innerHTML = "STOP!";
         }
     }, 10)
 }
@@ -470,8 +473,8 @@ function runGame(difficulty) {
         tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition)        
     }
 
-    var timeForAllPaths = (tankPaths * 3000) + 1000;
-    var timeForPlaying = timeForAllPaths + 5000;
+    var timeForAllPaths = (tankPaths * 3200) + 1000;
+    var timeForPlaying = timeForAllPaths + 10000;
     noRunningTanks = false;
 
     killTracker = 0;
@@ -496,12 +499,13 @@ function runGame(difficulty) {
         document.getElementById("welcomeOverlay").style.display = "none";
         setHint();
         noRunningTanks = true; // Tanks have finished running and user is able to set mines.
+        beginUserTimer();
     }, timeForAllPaths);
 
     setTimeout(function(){
         document.getElementById("welcomeOverlay").style.display = "block";
         noRunningTanks = false;
-        replay(); // need to adjust for blue squares
+        replayTwo(timeForAllPaths); // need to adjust for blue squares
     }, timeForPlaying);
 
     setTimeout(function() {
