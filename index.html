@@ -14,11 +14,11 @@
 
         <div id="welcomeOverlay">
             <div id="introBox">
-                <div id="introImage"></div>
-                <div class="buttonCustomMain" onclick="instructions()">Instructions</div>
-                <div class="buttonCustom" onclick="overlayOff()">Easy</div>
-                <div class="buttonCustom">Medium</div>
-                <div class="buttonCustom">Hard</div>
+                <div id="importantDetails"></div>
+                <div class="buttonCustomMain">Instructions</div>
+                <div class="buttonCustom" onclick="runGameEasy()">Easy</div>
+                <div class="buttonCustom" onclick="runGameMedium()">Medium</div>
+                <div class="buttonCustom" onclick="runGameHard()">Hard</div>
             </div>  
         </div>
 
@@ -33,13 +33,6 @@
                 </div>
             </div>
         </div>
-
-        <button onclick="makeThreeTanks()">Ful Test</button>
-        <button onclick="clearAll()">Clear Board!</button>        
-        <button onclick="getMoreInfo()">Live Update</button>
-        <button onclick="setHint()">Hint</button>
-        <div id="infoDetails"></div>
-
     </div>
 </body>
 </html>

@@ -129,7 +129,31 @@ function createMine(GBi) {
 
 
 
-       <div>Invisible Home Screen (Tint): Rules / (Easy/Medium/Expert) </div>
-    
-        <div>Invisible Watch (Tint) Closely / Go Screen</div>
-        <div>Invisible AfterScreen (Tint):  Lose (none) / Partial lose (some) / partial win (all but with too many mines) / perfect win / Rules / (Easy/Medium/Expert)  </div>
+<div>Invisible Home Screen (Tint): Rules / (Easy/Medium/Expert) </div>
+    Watch Closely!
+    Pay Close Attention!
+    Stay Focused!
+    Follow along!
+    Try to keep track!
+    Stay alert!
+
+    GO!
+
+
+<div>Invisible Watch (Tint) Closely / Go Screen</div>
+<div>Invisible AfterScreen (Tint):  Lose (none) / Partial lose (some) / partial win (all but with too many mines) / perfect win / Rules / (Easy/Medium/Expert)  </div>
+ Mobile
+ Make more random / make mouse green / consider different animations
+
+
+         <button onclick="makeThreeTanks()">Ful Test</button>
+        
+        <div id="pre-Game"></div>
+        <button onclick="preGame()">PreGame</button>
+        <button onclick="clearAll()">Clear Board!</button>        
+        <button onclick="getMoreInfo()">Live Update</button>
+        <button onclick="setHint()">Hint</button>
+        <div id="infoDetails"></div>
+
+        python3 -m http.server
+

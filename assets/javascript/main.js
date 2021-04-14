@@ -3,6 +3,7 @@ const goingLeft = [20,30,40,50,60,70,80,90];
 const goingRight = [11,21,31,41,51,61,71,81];
 const goingUp = [92,93,94,95,96,97,98,99];
 const goingDown = [2,3,4,5,6,7,8,9];
+var mineCounter = 0;
 var gameSpaceArray = [];
 var tankStartPositions = [];
 var tankTrackerArray = [];
@@ -237,13 +238,15 @@ function replay() {
 function setMine(num) {
     if (noRunningTanks == true) {
         document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox landMine" onclick="clearBoxBeforeTankRun(' + (num) + ')">'  + (num + 1) + '</div>'; 
-        gameSpaceArray[num].boxType = "landMine";         
+        gameSpaceArray[num].boxType = "landMine";
+        mineCounter++;         
     }
 }
 
 function clearBoxBeforeTankRun(num) {
     if (noRunningTanks == true) {
         clearBox(num);
+        mineCounter--;
     }    
 }
 
@@ -280,34 +283,37 @@ function setHole(num) {
     gameSpaceArray[num].boxType = "hole";         
 }
 
-function fullTest() {
-    //beginUserTimer();
-    var text = " ";
-    noRunningTanks = false;
+function showResults() { 
+    var text = "";
+    var minimum = getMinimum();
+    var numOfMinesUsed;
+    var numOfTanks = tankStartPositions.length;
 
-    makeThreeTanks();
-//  Takes 10 seconds to fully run three tanks
-    setTimeout(function(){
-        noRunningTanks = true;
-    }, 10000);
+    clearAll();
+    document.getElementById("hintBox").innerHTML = " ";
+    document.getElementById("hintBox").style.display = "none";
+    document.getElementById("blackBox").style.display = "none";
+    document.getElementById("introBox").style.backgroundColor = "rgb(0, 0, 0)";
+    document.getElementById("introBox").style.height = "90.5%";
+    document.getElementById("introBox").style.textAlign = "center";
+    document.getElementById("introBox").style.fontSize = "40px";
+    var text = '<div id="importantDetails"></div> <div class="buttonCustomMain">Instructions</div> <div class="buttonCustom" onclick="runGameEasy()">Easy</div> <div class="buttonCustom" onclick="runGameMedium()">Medium</div> <div class="buttonCustom" onclick="runGameHard()">Hard </div>';
+    document.getElementById("introBox").style.display = "block";
+    document.getElementById("introBox").innerHTML = text;
 
-    setTimeout(function(){
-        noRunningTanks = false;
-        replay();
-    }, 15000);
-  
-    // setTimeout(function(){
-    //     if (killTracker == 3) {
-    //         text += "You incapacitate all enemy vehicles: " + killTracker;
-    //     } else {
-    //         text += "You failed, you only incapacitate this many enemy vehicles: " + killTracker;   
-    //     }  
-    //     noRunningTanks = true;
-    //     alert(text);
-    // }, 25010);   
+    document.getElementById("welcomeOverlay").style.backgroundColor = "rgba(8, 8, 8, 0.5)";
+    document.getElementById("welcomeOverlay").style.display = "block";
 
-    // show results
-
+    if (killTracker == numOfTanks && numOfMinesUsed == minimum) {
+        text += "Three Stars";
+    } else if (killTracker == numOfTanks && numOfMinesUsed > minimum) {
+        text += "Two Stars";
+    } else if (killTracker < numOfTanks && killTracker > 0) {
+        text += "One Stars";   
+    } else if (killTracker == 0) {
+        text += "Zero Stars";
+    }
+    document.getElementById("importantDetails").innerHTML = text;
 }
 
 function clearForBlue(end, movement) {
@@ -364,11 +370,17 @@ function beginUserTimer() {
 }
 
 function setHint() {
+    var minimum = getMinimum();
+    var text =  minimum + " Mines Required";
+    
+    document.getElementById("hintBox").innerHTML = text;
+}
+
+function getMinimum() {
     var numOfTanks = tankStartPositions.length;
     var numOfIntersections = 0;
 
-    LeastPossibleNumOfMines = Math.ceil(numOfTanks / 2);
-    currentLeastNumOfMines = 0;
+    minimumMines = 0;
 
     var arr = tankTrackerArray;
 
@@ -383,17 +395,14 @@ function setHint() {
         }
     }
 
-    //numOfIntersections = ;
-    //numOfTanks = ;
-
     var oneCount = 0;
     var twoCount = 0;
     var tankCount = numOfTanks;
 
     if (numOfIntersections == 0) {
-        currentLeastNumOfMines = tankCount;
+        minimumMines = tankCount;
     } else if (numOfIntersections > tankCount){
-        currentLeastNumOfMines = Math.ceil(tankCount / 2);
+        minimumMines = Math.ceil(tankCount / 2);
     } else {
         for (i = 0; i < numOfIntersections; i++) {
             if(tankCount > 1) {
@@ -406,11 +415,14 @@ function setHint() {
             }
         }
         oneCount =  numOfTanks - (twoCount * 2);
-        currentLeastNumOfMines = oneCount + twoCount;
+        minimumMines = oneCount + twoCount;
     }
-    
-    document.getElementById("infoDetails").innerHTML = "Least Number of Mines: " + currentLeastNumOfMines;
+
+    //document.getElementById("importantDetails").innerHTML = "Least Number of Mines: " + minimumMines;
+
+    return minimumMines; // The least number of mines possible to win with.
 }
+
 
 function getPositions() {
     var text = "";
@@ -428,18 +440,135 @@ function overlayOff() {
 
 
 
-function runGame() {
-    tankRuns = 5;
+function runGame(difficulty) {
     tankStartPositions = [];
+    var tankPaths = 0;  
+
+    if (difficulty == "easy") {
+        var firsttankStartPosition = randomInt();
+        var secondtankStartPosition = randomInt();
+        var thirdtankStartPosition = randomInt();
+        tankPaths = 3
+        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition)        
+    }
+
+    if (difficulty == "medium") {
+        var firsttankStartPosition = randomInt();
+        var secondtankStartPosition = randomInt();
+        var thirdtankStartPosition = randomInt();
+        var fourthtankStartPosition = randomInt();
+        var fifthtankStartPosition = randomInt();
+        tankPaths = 5;
+        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition)        
+    }
+
+    if (difficulty == "hard") {
+        var firsttankStartPosition = randomInt();
+        var secondtankStartPosition = randomInt();
+        var thirdtankStartPosition = randomInt();
+        var fourthtankStartPosition = randomInt();
+        var fifthtankStartPosition = randomInt();
+        tankPaths = 5;
+        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition)        
+    }
+
+    var timeForAllPaths = (tankPaths * 3000) + 1000;
+    var timeForPlaying = timeForAllPaths + 5000;
+    noRunningTanks = false;
+
     killTracker = 0;
 
-    for (i = 0; i < tankRuns; i++) {
-        var position = randomInt();
-        tankStartPositions.push(position);
-    }
+    runTank(tankStartPositions[0]);
+    // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
 
-    for (i = 0; i < tankRuns; i++) {
-        runTank(tankStartPositions[i]);
-    }
+    var currentTime = 3400;
+    var nextTank = 1;
 
+    var tankTime = setInterval(function(){
+        runTank(tankStartPositions[nextTank]);
+        nextTank++;
+        currentTime = currentTime + 3500;        
+        if (currentTime > timeForAllPaths) {
+            clearInterval(tankTime);
+        }
+    }, 3500); // about half a second after the previous finishes
+    //  Takes 10 seconds to fully run three tanks
+
+    setTimeout(function(){
+        document.getElementById("welcomeOverlay").style.display = "none";
+        setHint();
+        noRunningTanks = true; // Tanks have finished running and user is able to set mines.
+    }, timeForAllPaths);
+
+    setTimeout(function(){
+        document.getElementById("welcomeOverlay").style.display = "block";
+        noRunningTanks = false;
+        replay(); // need to adjust for blue squares
+    }, timeForPlaying);
+
+    setTimeout(function() {
+        showResults();
+    }, (timeForPlaying + timeForAllPaths + 500));
+}
+
+function preGame() {
+
+    document.getElementById("introBox").style.backgroundColor = "rgba(255, 0, 0, 0.300)";
+    document.getElementById("introBox").style.fontcolor = "blue";
+    document.getElementById("introBox").style.height = "600px";
+    document.getElementById("introBox").style.textAlign = "center";
+    document.getElementById("introBox").style.fontSize = "500px";
+
+    document.getElementById("introBox").innerText = 1;    
+    document.getElementById("welcomeOverlay").style.backgroundColor = "transparent";
+    document.getElementById("welcomeOverlay").style.display = "block";
+
+    setTimeout(function(){
+        document.getElementById("welcomeOverlay").style.display = "none"
+    }, 500);
+
+    setTimeout(function(){
+        document.getElementById("introBox").innerText = 2; 
+        document.getElementById("welcomeOverlay").style.display = "block";
+    },  950);
+
+    setTimeout(function(){
+        document.getElementById("welcomeOverlay").style.display = "none"
+    }, 1610);
+
+    setTimeout(function(){
+        document.getElementById("introBox").innerText = 1; 
+        document.getElementById("welcomeOverlay").style.display = "block";
+    },  2100);
+
+    setTimeout(function(){
+        document.getElementById("hintBox").style.display = "block";
+        document.getElementById("blackBox").style.display = "block";
+        document.getElementById("introBox").innerText = " ";
+        document.getElementById("introBox").style.backgroundColor = "transparent"; // invisible gaurd
+    }, 2800);     
+}
+
+function runGameEasy() {
+    preGame();
+
+    setTimeout(function() {
+        runGame("easy");
+    }, 2900);
+}
+
+function runGameMedium() {
+    preGame();
+
+    setTimeout(function() {
+        runGame("medium");
+    }, 2900);
+}
+
+function runGameHard() {
+    preGame();
+
+    setTimeout(function() {
+        runGame("hard");
+    }, 2900);
 }
