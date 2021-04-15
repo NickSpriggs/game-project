@@ -138,7 +138,9 @@ function runTank(start) {
     if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
         killTracker++; 
         if (killTracker > 0) {
-            document.getElementById("killCount").innerText = killTracker + " destroyed!";        
+            document.getElementById("tankCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+            document.getElementById("tankCount").style.color = "white";
+            document.getElementById("tankCount").innerText = killTracker + " destroyed!";        
         }
     }
     
@@ -195,9 +197,9 @@ function runMovement(start, end, movement, directionVariable) {
 
             if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
                 killTracker++; 
-                document.getElementById("killCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
-                document.getElementById("killCount").style.color = "white";
-                document.getElementById("killCount").innerText = killTracker + " Destroyed!";
+                document.getElementById("tankCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+                document.getElementById("tankCount").style.color = "white";
+                document.getElementById("tankCount").innerText = killTracker + " Destroyed!";
             }
         }
     } , 300);
@@ -302,7 +304,7 @@ function showResults() {
     document.getElementById("welcomeOverlay").style.display = "block";
 
     if (killTracker == numOfTanks) {
-        score = score + "Congratulations! You managed to destroy all " + numOfTanks + "tanks!";
+        score = score + "Congratulations! You managed to destroy all " + numOfTanks + " tanks!";
     } else if (killTracker < numOfTanks && killTracker > 0) {
         score = score + "Don't feel bad! You managed to destroy " + killTracker + " of them!";
     } else if (killTracker == 0) {
@@ -367,9 +369,12 @@ function beginUserTimer() {
 
 function setHint() {
     var minimum = getMinimum();
+
     document.getElementById("mineCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
     document.getElementById("mineCount").style.color = "white";
-    document.getElementById("mineCount").innerText = "Fewest Possible Mines: " + minimum;
+    document.getElementById("mineCount").innerText = tankStartPositions.length + " Tanks";  
+    document.getElementById("tankCount").innerText = "Fewest Possible Mines: " + minimum;    
+
 }
 
 function getMinimum() {
@@ -503,7 +508,19 @@ function runGame(difficulty) {
     setTimeout(function(){
         document.getElementById("blinkingOverlay").style.display = "block";
         noRunningTanks = false;
+
         replay(timeForAllPaths); // need to adjust for blue squares
+
+        document.getElementById("tankCount").style.backgroundColor = "white";
+        document.getElementById("tankCount").style.color = "black";
+        document.getElementById("tankCount").innerHTML = "# of Tanks Destroyed";
+
+        document.getElementById("mineCount").innerHTML = "Fewest Possible Mines: " + getMinimum();
+
+        document.getElementById("killCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+        document.getElementById("killCount").style.color = "white";
+        document.getElementById("killCount").innerText = tankStartPositions.length + " Tanks";   
+
     }, timeForPlaying);
 
     setTimeout(function() {
@@ -548,7 +565,7 @@ function runGameHard() {
 
     setTimeout(function() {
         runGame("hard");
-        document.getElementById("tankCount").innerText = "4 Tanks";
+        document.getElementById("tankCount").innerText = "5 Tanks";
         document.getElementById("tankCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
         document.getElementById("tankCount").style.color = "white";
     }, 1000);
