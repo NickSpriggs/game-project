@@ -107,7 +107,7 @@ In order to make a clone follow the previous section up to step #2:
     - Developer wrote all the text.
 
 - Media
-    - [BestWallpapers] (https://besthqwallpapers.com/textures/summer-camouflage-texture-dark-green-camouflage-texture-dark-green-camouflage-background-camouflage-texture-138419) This was used to create the camoflouge background.
+    - [BestWallpapers](https://besthqwallpapers.com/textures/summer-camouflage-texture-dark-green-camouflage-texture-dark-green-camouflage-background-camouflage-texture-138419) This was used to create the camoflouge background.
 
     - [iStockPhoto](https://www.istockphoto.com/vector/top-view-of-the-city-with-a-desert-gm922427730-253211217): This was were I obtained the game space background.
 
