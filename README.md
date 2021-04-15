@@ -60,9 +60,9 @@ strengthen the users memory and attention but also provide them with entertainme
 W3C Markup Validator and W3C CSS Validator were used to test the code. 
 
 - WSC Markup - [Link to site](https://validator.w3.org/)
-    - Index.html - <a href="assets/PDFs/Index - Success.pdf"> Results PDF </a>
+    - Index.html - <a href="assets/PDF/validation-HTML.pdf"> Results PDF </a>
 - W3C CSS - [Link to site](https://jigsaw.w3.org/css-validator/#validate_by_input)
-    - Style.css - <a href="assets/PDFs/CSS - Success.pdf">Results PDF </a>
+    - Stylesheet.css - <a href="assets/PDF/validation-CSS.pdf">Results PDF </a>
 
 ## Testing User Stories
 
