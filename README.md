@@ -61,12 +61,14 @@ Ideally the paths will intersect, forcing the user to try and remember where the
 
 
 # Testing
-W3C Markup Validator and W3C CSS Validator were used to test the code. 
+W3C Markup Validator, W3C CSS Validator, and JSHint were used to test the code. 
 
 - WSC Markup - [Link to site](https://validator.w3.org/)
     - Index.html - <a href="assets/PDF/validation-HTML.pdf"> Results PDF </a>
 - W3C CSS - [Link to site](https://jigsaw.w3.org/css-validator/#validate_by_input)
     - Stylesheet.css - <a href="assets/PDF/validation-CSS.pdf">Results PDF </a>
+- JSHint - [https://jshint.com/]
+
 
 ## Testing User Stories
 
