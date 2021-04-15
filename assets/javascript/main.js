@@ -11,9 +11,8 @@ var killTracker = 0;
 var noRunningTanks = true;
 
 function setGameBoxes () {
-//window.onload = function(){
     document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer">Timer</div></div>';
-    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount"># of Mines To Win</div><div class="gameTracker" id="killCount"># of Tanks Destroyed</div></div>';   
+    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount">Tips</div><div class="gameTracker" id="killCount"># of Tanks Destroyed</div></div>';   
     document.getElementById("gameSpace").outerHTML = '<div id="gameSpace" class="map"></div>';
     var gameSpace = document.getElementById("gameSpace");
 
@@ -21,7 +20,7 @@ function setGameBoxes () {
 
         var boxNumber = (i + 1);
         var boxDiv = '<div id=' + 'GB' + (i) + ' class="gameBox" onclick="setMine(' + (i) + ')">' + '</div>'; 
-        //var boxDiv = '<div id=' + 'GB' + (i + 1) + ' class="gameBox">' + (i + 1) + '</div>'; 
+
         gameSpace.innerHTML += boxDiv;
 
         boxDivObject = {
@@ -35,8 +34,6 @@ function setGameBoxes () {
 };
 
 function randomInt(arr) {
-    //     random number from either 1-10 / 10s-100 / 91-100 / 1-11-21-31-41...91 to start:
-    // (2/3/4/5/6/7/8/9/20/30/40/50/60/70/80/90/11/21/31/41/51/61/71/81/92/93/94/95/96/97/98/99) | [1][10[91][100]
     var startNumber = 0;
     var startNumberIndex = 0;
     var workingNumberBoolean = false;
@@ -48,11 +45,11 @@ function randomInt(arr) {
 
             if (startNumber == arr[i]) {
                 workingNumberBoolean = true;
-                startNumberIndex = i;
+                startNumberIndex = arr[i];
             }
         }
     }
-    arr.splice(startNumberIndex, 1);
+    arr.push(startNumberIndex);
     return startNumber;
     // startNumber is the box number NOT the actual index in the array 
 }
@@ -109,7 +106,6 @@ function setTank(num, directionString) {
 
     tankTrackerArray.push(num + 1);
     setBlueBox(num);
-    //console.log(gameSpaceArray[num].name + " | Index in Array: " + num + " | <div id= GB" + (num));
 }
 
 function clearBox(num) {
@@ -143,8 +139,6 @@ function runTank(start) {
             document.getElementById("tankCount").innerText = killTracker + " destroyed!";        
         }
     }
-    
-    ///// Tank Moving Code /////
 
     if (divElement.direction == "goingRight") {
         var end = start + 9;
@@ -256,7 +250,7 @@ function clearBoxBeforeTankRun(num) {
 function setExplosion(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox explosion"> ' + '</div>'; 
     gameSpaceArray[num].boxType = "explosion"; 
-    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; // red death
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; 
     
     setTimeout(function(){
         setHole(num);
@@ -265,7 +259,7 @@ function setExplosion(num) {
 
 function setCrash(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox crash"> ' + '</div>'; 
-    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; // red death
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; 
     
     setTimeout(function(){
         setHole(num);
@@ -273,7 +267,6 @@ function setCrash(num) {
 }
 
 function setTankOrExplosionOrCrash(num, directionString) {
-    //console.log("Box #" + (num + 1) + "| Array Index: " + num + " | Box Type: "  + gameSpaceArray[num].boxType);
     if (gameSpaceArray[num].boxType == "empty") {
         setTank(num, directionString);        
     } else if (gameSpaceArray[num].boxType == "landMine") {
@@ -285,7 +278,7 @@ function setTankOrExplosionOrCrash(num, directionString) {
 
 function setHole(num) {
     document.getElementById("GB" + num).outerHTML = '<div id=' + 'GB' + num + ' class="gameBox hole"> ' + '</div>'; 
-    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; // red death
+    document.getElementById("GB" + num).style.backgroundColor = "rgba(145, 0, 0, 0.274)"; 
     gameSpaceArray[num].boxType = "hole";         
 }
 
@@ -298,7 +291,7 @@ function showResults() {
     clearAll();
 
     document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer">Timer</div></div>';
-    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount"># of Mines To Win</div><div class="gameTracker" id="killCount"> # of Tanks Destroyed</div></div>';   
+    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount">Tips</div><div class="gameTracker" id="killCount"> # of Tanks Destroyed</div></div>';   
 
     document.getElementById("welcomeOverlay").style.backgroundColor = "rgba(8, 8, 8, 0.726)";
     document.getElementById("welcomeOverlay").style.display = "block";
@@ -373,7 +366,7 @@ function setHint() {
     document.getElementById("mineCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
     document.getElementById("mineCount").style.color = "white";
     document.getElementById("mineCount").innerText = tankStartPositions.length + " Tanks";  
-    document.getElementById("tankCount").innerText = "Fewest Possible Mines: " + minimum;    
+    document.getElementById("tankCount").innerText = "Only Need: " + minimum;    
 
 }
 
@@ -393,8 +386,6 @@ function getMinimum() {
             }
         }
     }
-
-    console.log("number of intersections: " + numOfIntersections);
 
     var oneCount = 0;
     var twoCount = 0;
@@ -419,25 +410,8 @@ function getMinimum() {
         minimumMines = oneCount + twoCount;
     }
 
-    //document.getElementById("importantDetails").innerHTML = "Least Number of Mines: " + minimumMines;
-
     return minimumMines; // The least number of mines possible to win with.
 }
-
-
-function getPositions() {
-    var text = "";
-    for (i = 0; i <  tankTrackerArray.length; i++) {
-        var text = text + "" + tankTrackerArray[i] + "<br>";     
-    }
-    document.getElementById("infoDetails").innerHTML = text;
-}
-
-function overlayOff() {
-  document.getElementById("welcomeOverlay").style.display = "none";
-}
-
-
 
 function runGame(difficulty) {
     tankStartPositions = [];
@@ -515,7 +489,7 @@ function runGame(difficulty) {
         document.getElementById("tankCount").style.color = "black";
         document.getElementById("tankCount").innerHTML = "# of Tanks Destroyed";
 
-        document.getElementById("mineCount").innerHTML = "Fewest Possible Mines: " + getMinimum();
+        document.getElementById("mineCount").innerHTML = "Only Need: " + getMinimum();
 
         document.getElementById("killCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
         document.getElementById("killCount").style.color = "white";
