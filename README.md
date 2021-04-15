@@ -95,8 +95,8 @@ W3C Markup Validator, W3C CSS Validator, and JSHint were used to test the code.
 # Deployment
 
 I deployed the project on GitHub using the application GitHub Pages. The steps to do so were as follows:
-1.  Log into your GitHub account. 
-2.  Go to the repository and on the menu bar click "Settings" which will redirect you to a separate page.
+1.  Log into GitHub. 
+2.  Go to the project's repository and on the menu bar and click "Settings" which will redirect you to a separate page.
 3.  Scroll down unti you find "GitHub Pages".
 4.  Under source change the dropdown menu from "None" to "Main". Then click "Save"
 

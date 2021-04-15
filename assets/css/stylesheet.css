@@ -46,7 +46,7 @@ button {
 }
 
 #importantDetails {
-    background-image: url(/assets/images/logo.png);
+    background-image: url("../images/logo.png");
     background-size: cover;
     height: 430px;
     width: 100%;
@@ -393,7 +393,7 @@ button {
     }
 
     #importantDetails {
-        background-image: url(/assets/images/logoSimple.png);
+        background-image: url("../images/logoSimple.png");
         background-size: cover;
         background-position: center;
     }
@@ -445,7 +445,7 @@ button {
     }
 
     #importantDetails {
-        background-image: url(/assets/images/logoSimple.png);
+        background-image: url("../images/logoSimple.png");
         background-size: cover;
         background-position: center;
         height: 290px;
