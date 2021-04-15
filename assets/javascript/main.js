@@ -15,7 +15,8 @@ function setGameBoxes () {
     document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount">Tips</div><div class="gameTracker" id="killCount"># of Tanks Destroyed</div></div>';   
     document.getElementById("gameSpace").outerHTML = '<div id="gameSpace" class="map"></div>';
     var gameSpace = document.getElementById("gameSpace");
-
+	var i;	
+  
     for (i=0; i <  100; i++) {
 
         var boxNumber = (i + 1);
@@ -23,7 +24,7 @@ function setGameBoxes () {
 
         gameSpace.innerHTML += boxDiv;
 
-        boxDivObject = {
+        var boxDivObject = {
             name: "Box #" + (boxNumber), 
             boxType: "empty",
             direction: "none",
@@ -31,7 +32,7 @@ function setGameBoxes () {
         };
         this.gameSpaceArray.push(boxDivObject); 
     } 
-};
+}
 
 function randomInt(arr) {
     var startNumber = 0;
@@ -40,7 +41,8 @@ function randomInt(arr) {
 
     while (workingNumberBoolean == false) {
         startNumber = Math.floor(Math.random() * 101);
-
+      	
+      	var i =0;
         for (i=0; i < arr.length; i++) {
 
             if (startNumber == arr[i]) {
@@ -59,6 +61,7 @@ function getDirection(inputNumber) {
     var directionBoolean = false;
 
     while (directionBoolean == false) {
+    		var i;
         for (i=0; i <  goingLeft.length; i++) {
             if (inputNumber == goingLeft[i]) {
                 directionBoolean = true;
@@ -116,6 +119,7 @@ function clearBox(num) {
 }
 
 function clearAll() {
+  	var i = 0;
     for (i = 0; i <  100; i++) {
         clearBox(i);
         gameSpaceArray[i].boxType = "empty"; 
@@ -139,33 +143,36 @@ function runTank(start) {
             document.getElementById("tankCount").innerText = killTracker + " destroyed!";        
         }
     }
+  
+  	var end = 0;
+  	var movement = 0;
 
     if (divElement.direction == "goingRight") {
-        var end = start + 9;
-        var movement = +1;
+        end = start + 9;
+        movement = +1;
 
         runMovement(start, end, movement, directionVariable);
 
     }
 
     if (divElement.direction == "goingLeft") {
-        var end = start - 9;
-        var movement = -1;
+        end = start - 9;
+        movement = -1;
 
         runMovement(start, end, movement, directionVariable);
 
     }
 
     if (divElement.direction == "goingUp") {
-        var end = start - 90;
-        var movement = -10;
+        end = start - 90;
+        movement = -10;
 
         runMovement(start, end, movement, directionVariable);
     }
 
     if (divElement.direction == "goingDown") {
-        var end = start + 90;
-        var movement = 10;
+        end = start + 90;
+        movement = 10;
 
         runMovement(start, end, movement, directionVariable);
     }
@@ -197,18 +204,6 @@ function runMovement(start, end, movement, directionVariable) {
             }
         }
     } , 300);
-}
-
-function getMoreInfo() {
-    setInterval(function() {
-        var text = "";
-        for (i = 0; i <  gameSpaceArray.length; i++) {
-            var text = text + "" + gameSpaceArray[i].name + " | Array Index: " + i + " | div id = GB" + i + " | Box Type: " + 
-            gameSpaceArray[i].boxType + " | Direction: " + gameSpaceArray[i].direction + "<br>";     
-        }
-        document.getElementById("infoDetails").style.fontSize = '10px';
-        document.getElementById("infoDetails").innerHTML = text;
-    }, 250)
 }
 
 function replay(timeForAllPaths) {
@@ -254,7 +249,7 @@ function setExplosion(num) {
     
     setTimeout(function(){
         setHole(num);
-    }, 500)
+    }, 500);
 }
 
 function setCrash(num) {
@@ -263,7 +258,7 @@ function setCrash(num) {
     
     setTimeout(function(){
         setHole(num);
-    }, 500)
+    }, 500);
 }
 
 function setTankOrExplosionOrCrash(num, directionString) {
@@ -284,8 +279,6 @@ function setHole(num) {
 
 function showResults() { 
     var score = "";
-    var minimum = getMinimum();
-    var numOfMinesUsed;
     var numOfTanks = tankStartPositions.length;
 
     clearAll();
@@ -308,6 +301,7 @@ function showResults() {
 
 function clearForBlue(end, movement) {
     end += movement;
+  	var i = 0;
     for (i = 0; i < 10; i++) {
         end = end - movement;
         document.getElementById("GB" + end).outerHTML = '<div id=' + 'GB' + end + ' class="gameBox" onclick="setMine(' + (end) + ')"> ' + '</div>'; 
@@ -338,7 +332,7 @@ function beginUserTimer() {
     var msTimer = 99;
     document.getElementById("gameTimer").innerHTML = sTimer + timeNotationWithout + "00";
 
-    mPublicTimer = setInterval(function() {
+    var mPublicTimer = setInterval(function() {
         if(msTimer == 0) {
             sTimer--;
             msTimer = 99;
@@ -357,7 +351,7 @@ function beginUserTimer() {
             clearInterval(mPublicTimer);
             document.getElementById("gameTimer").innerHTML = "STOP!";
         }
-    }, 10)
+    }, 10);
 }
 
 function setHint() {
@@ -374,11 +368,13 @@ function getMinimum() {
     var numOfTanks = tankStartPositions.length;
     var numOfIntersections = 0;
 
-    minimumMines = 0;
+    var minimumMines = 0;
 
     var arr = tankTrackerArray;
 
     numOfIntersections = 0;
+  	var i;
+  	var j;
     for(i = 0; i < arr.length; i++) {  
         for(j = i + 1; j < arr.length; j++) {  
             if(arr[i] == arr[j]) { 
@@ -417,35 +413,41 @@ function runGame(difficulty) {
     tankStartPositions = [];
     var tankPaths = 0;  
     var tempStartArray = startArray;
+    var firsttankStartPosition = 0;
+    var secondtankStartPosition = 0;
+    var thirdtankStartPosition = 0;
+    var fourthtankStartPosition = 0;
+    var fifthtankStartPosition = 0;
+  	var timeForAllPaths = 0;
 
     if (difficulty == "easy") {
-        var firsttankStartPosition = randomInt(tempStartArray);
-        var secondtankStartPosition = randomInt(tempStartArray);
-        var thirdtankStartPosition = randomInt(tempStartArray);
-        tankPaths = 3
-        var timeForAllPaths = (tankPaths * 3000) + 1000;
-        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition)        
+        firsttankStartPosition = randomInt(tempStartArray);
+        secondtankStartPosition = randomInt(tempStartArray);
+        thirdtankStartPosition = randomInt(tempStartArray);
+        tankPaths = 3;
+        timeForAllPaths = (tankPaths * 3000) + 1000;
+        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition);        
     }
 
     if (difficulty == "medium") {
-        var firsttankStartPosition = randomInt(tempStartArray);
-        var secondtankStartPosition = randomInt(tempStartArray);
-        var thirdtankStartPosition = randomInt(tempStartArray);
-        var fourthtankStartPosition = randomInt(tempStartArray);
+        firsttankStartPosition = randomInt(tempStartArray);
+        secondtankStartPosition = randomInt(tempStartArray);
+        thirdtankStartPosition = randomInt(tempStartArray);
+        fourthtankStartPosition = randomInt(tempStartArray);
         tankPaths = 4;
-        var timeForAllPaths = (tankPaths * 3100) + 1000;
-        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition)        
+        timeForAllPaths = (tankPaths * 3100) + 1000;
+        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition);        
     }
 
     if (difficulty == "hard") {
-        var firsttankStartPosition = randomInt(tempStartArray);
-        var secondtankStartPosition = randomInt(tempStartArray);
-        var thirdtankStartPosition = randomInt(tempStartArray);
-        var fourthtankStartPosition = randomInt(tempStartArray);
-        var fifthtankStartPosition = randomInt(tempStartArray);
+        firsttankStartPosition = randomInt(tempStartArray);
+        secondtankStartPosition = randomInt(tempStartArray);
+        thirdtankStartPosition = randomInt(tempStartArray);
+        fourthtankStartPosition = randomInt(tempStartArray);
+        fifthtankStartPosition = randomInt(tempStartArray);
         tankPaths = 5;
-        var timeForAllPaths = (tankPaths * 3200) + 1000;
-        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition)        
+        timeForAllPaths = (tankPaths * 3200) + 1000;
+        tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition);        
     }
 
     var timeForPlaying = timeForAllPaths + 10000;
@@ -507,7 +509,7 @@ function runGameEasy() {
     setGameBoxes();
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
-    document.getElementById("blinkingOverlay").style.display = "block"
+    document.getElementById("blinkingOverlay").style.display = "block";
 
     setTimeout(function() {
         runGame("easy");
@@ -521,7 +523,7 @@ function runGameMedium() {
     setGameBoxes();
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
-    document.getElementById("blinkingOverlay").style.display = "block"
+    document.getElementById("blinkingOverlay").style.display = "block";
 
     setTimeout(function() {
         runGame("medium");
@@ -535,7 +537,7 @@ function runGameHard() {
     setGameBoxes();
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
-    document.getElementById("blinkingOverlay").style.display = "block"
+    document.getElementById("blinkingOverlay").style.display = "block";
 
     setTimeout(function() {
         runGame("hard");
