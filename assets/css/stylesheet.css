@@ -105,8 +105,8 @@ button {
     border-style: outset;
     border-color: #193947;
 
-    height: 600px;
-    width: 600px;
+    height: 500px;
+    width: 500px;
 }
 
 #gameTimer {
@@ -144,8 +144,8 @@ button {
 }
 
 .gameBox {
-    height: 58px;
-    width: 58px;
+    height: 48px;
+    width: 48px;
     
     float: left;
  
@@ -155,8 +155,8 @@ button {
 }
 
 .gameBox:hover {
-    height: 56px;
-    width: 56px;
+    height: 46px;
+    width: 46px;
     background-color: rgba(255, 0, 0, 0.274);
     border-color: red;;
     border-width: 2px;
@@ -280,10 +280,6 @@ button {
         width: 500px;
     }
 
-    #importantDetails {
-        background-image: url(/assets/images/LOGO_smaller.png);
-    }
-
     #introBox {
         width: 400px;        
     }
@@ -315,53 +311,6 @@ button {
 
 }
 
-@media only screen and (max-width: 540px) {
-    #gameSpace {
-        margin-top: 10px;
-        margin-left: auto;
-        margin-right: auto;
-
-        border-width: 0px;
-        border-style: outset;
-        border-color: #193947;
-
-        height: 400px;
-        width: 400px;
-    }
-
-    #importantDetails {
-        background-image: url(/assets/images/LOGO_smallest.png);
-    }
-
-    #introBox {
-        width: 300px;
-    }
-
-    .buttonCustom {
-        width: 31.2%;
-        font-size: 26px;
-    }
-
-    .gameBox {
-        height: 38px;
-        width: 38px;
-        
-        float: left;
-    
-        border-width: 1px;
-        border-style: solid;
-        border-color: #193947;
-    }
-
-    .gameBox:hover {
-        height: 36px;
-        width: 36px;
-        background-color: rgba(255, 0, 0, 0.274);
-        border-color: red;;
-        border-width: 2px;
-    }
-}
-
 @media only screen and (max-width: 455px) {
     #gameSpace {
         margin-top: 10px;
@@ -374,6 +323,10 @@ button {
 
         height: 300px;
         width: 300px;
+    }
+
+    #introBox {
+        width: 400px;        
     }
 
     #introBox {
@@ -400,7 +353,7 @@ button {
     }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 540px) {
     #gameSpace {
         margin-top: 10px;
         margin-left: auto;
@@ -410,8 +363,8 @@ button {
         border-style: outset;
         border-color: #193947;
 
-        height: 250px;
-        width: 250px;
+        height: 350px;
+        width: 350px;
     }
 
     .buttonCustom {
@@ -424,8 +377,8 @@ button {
     }
 
     .gameBox {
-        height: 23px;
-        width: 23px;
+        height: 33px;
+        width: 33px;
         
         float: left;
     
@@ -446,10 +399,76 @@ button {
     }
 
     .gameBox:hover {
-        height: 22px;
-        width: 22px;
+        height: 31px;
+        width: 31px;
         background-color: rgba(255, 0, 0, 0.274);
         border-color: red;;
         border-width: 2px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #gameSpace {
+        height: 280px;
+        width: 280px;
+    }
+
+    #introBox {
+        width: 260px;
+    }
+
+    .gameBox {
+        height: 26px;
+        width: 26px;
+    }
+
+    #gameTimer {
+        padding-top: 10px;
+        font-size: 25px;
+    }
+
+    .gameBox:hover {
+        height: 24px;
+        width: 24px;
+    }
+}
+
+
+@media only screen and (max-width: 320px) {
+    #gameSpace {
+        height: 230px;
+        width: 230px;
+    }
+
+    #introBox {
+        width: 230px;
+    }
+
+    #importantDetails {
+        background-image: url(/assets/images/LOGOSimple.png);
+        background-image: cover;
+        background-position: center;
+        height: 290px;
+    }
+
+    .gameTracker {
+        padding-top: 5px;
+        height: 25px;
+        width: 80%;
+    }
+
+    .gameBox {
+        height: 21px;
+        width: 21px;
+    }
+
+    #gameTimer {
+        padding-top: 10px;
+        font-size: 25px;
+    }
+
+    .gameBox:hover {
+        height: 19px;
+        width: 19px;
     }
 }

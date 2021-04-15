@@ -13,7 +13,7 @@ var noRunningTanks = true;
 function setGameBoxes () {
 //window.onload = function(){
     document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer">Timer</div></div>';
-    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount"># of Mines To Win</div><div class="gameTracker" id="killCount">Tanks Destroyed</div></div>';   
+    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount"># of Mines To Win</div><div class="gameTracker" id="killCount"># of Tanks Destroyed</div></div>';   
     document.getElementById("gameSpace").outerHTML = '<div id="gameSpace" class="map"></div>';
     var gameSpace = document.getElementById("gameSpace");
 
@@ -195,8 +195,9 @@ function runMovement(start, end, movement, directionVariable) {
 
             if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
                 killTracker++; 
+                document.getElementById("killCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+                document.getElementById("killCount").style.color = "white";
                 document.getElementById("killCount").innerText = killTracker + " Destroyed!";
-                //console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
             }
         }
     } , 300);
@@ -214,7 +215,6 @@ function getMoreInfo() {
     }, 250)
 }
 
-// edit replayer
 function replay(timeForAllPaths) {
     runTank(tankStartPositions[0]);
     // takes three seconds to cross completely -> 0.0 -> 3.0 seconds
@@ -295,19 +295,20 @@ function showResults() {
 
     clearAll();
 
+    document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer">Timer</div></div>';
+    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount"># of Mines To Win</div><div class="gameTracker" id="killCount"> # of Tanks Destroyed</div></div>';   
+
     document.getElementById("welcomeOverlay").style.backgroundColor = "rgba(8, 8, 8, 0.726)";
     document.getElementById("welcomeOverlay").style.display = "block";
 
-    if (killTracker == numOfTanks && numOfMinesUsed == minimum) {
-        score += "Three Stars";
-    } else if (killTracker == numOfTanks && numOfMinesUsed > minimum) {
-        score += "Two Stars";
+    if (killTracker == numOfTanks) {
+        score = score + "Congratulations! You managed to destroy all " + numOfTanks + "tanks!";
     } else if (killTracker < numOfTanks && killTracker > 0) {
-        score += "One Stars";   
+        score = score + "Don't feel bad! You managed to destroy " + killTracker + " of them!";
     } else if (killTracker == 0) {
-        score += "Zero Stars";
-    }
-    //document.getElementById("importantDetails").innerHTML = score;
+        score = score + "You need more practice!";   
+    } 
+    alert(score);
 }
 
 function clearForBlue(end, movement) {
@@ -366,6 +367,8 @@ function beginUserTimer() {
 
 function setHint() {
     var minimum = getMinimum();
+    document.getElementById("mineCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+    document.getElementById("mineCount").style.color = "white";
     document.getElementById("mineCount").innerText = "Fewest Possible Mines: " + minimum;
 }
 
@@ -474,6 +477,7 @@ function runGame(difficulty) {
     runTank(tankStartPositions[0]);
     // takes three seconds to cross completely -> 0.0 -> 3.0 seconds 
 
+
     var currentTime = 3400; 
     var nextTank = 1;
 
@@ -513,10 +517,12 @@ function runGameEasy() {
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
     document.getElementById("blinkingOverlay").style.display = "block"
-    document.getElementById("tankCount").innerText = "3 Tanks";
 
     setTimeout(function() {
         runGame("easy");
+        document.getElementById("tankCount").innerText = "3 Tanks";
+        document.getElementById("tankCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+        document.getElementById("tankCount").style.color = "white";
     }, 1000);
 }
 
@@ -525,10 +531,12 @@ function runGameMedium() {
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
     document.getElementById("blinkingOverlay").style.display = "block"
-    document.getElementById("tankCount").innerText = "4 Tanks";
 
     setTimeout(function() {
         runGame("medium");
+        document.getElementById("tankCount").innerText = "4 Tanks";
+        document.getElementById("tankCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+        document.getElementById("tankCount").style.color = "white";
     }, 1000);
 }
 
@@ -537,9 +545,16 @@ function runGameHard() {
     document.getElementById("welcomeOverlay").style.display = "none";
     document.getElementById("blinkingOverlay").style.backgroundColor = "transparent";
     document.getElementById("blinkingOverlay").style.display = "block"
-    document.getElementById("tankCount").innerText = "5 Tanks";
 
     setTimeout(function() {
         runGame("hard");
+        document.getElementById("tankCount").innerText = "4 Tanks";
+        document.getElementById("tankCount").style.backgroundColor = "rgba(200, 71, 8, 0.877)";
+        document.getElementById("tankCount").style.color = "white";
     }, 1000);
+}
+
+function getRules() {
+    var rules = "The goal of the game is simple! Memorize the path of the tanks and destroy them with as few mines as possible. The first half of the game is just observation after the tanks make their first run you'll have ten seconds to place your mines. Follow their paths closely! You never know when they might intersect. You may just get a two-for-one! ";
+    alert(rules);
 }
