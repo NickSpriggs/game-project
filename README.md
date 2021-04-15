@@ -29,7 +29,8 @@ strengthen the users memory and attention but also provide them with entertainme
 
 ## Wireframes:
 
-<img src="assets/images/wireframes/homepage-wireframe.png">
+<img src="<assets/images/wireframes/WireframeMenu.png">">
+<img src="<assets/images/wireframes/WireframeGamePlay.png">">
 
 
 # Features
