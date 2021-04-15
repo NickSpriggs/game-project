@@ -394,7 +394,7 @@ button {
 
     #importantDetails {
         background-image: url(/assets/images/LOGOSimple.png);
-        background-image: cover;
+        background-size: cover;
         background-position: center;
     }
 
@@ -446,7 +446,7 @@ button {
 
     #importantDetails {
         background-image: url(/assets/images/LOGOSimple.png);
-        background-image: cover;
+        background-size: cover;
         background-position: center;
         height: 290px;
     }
