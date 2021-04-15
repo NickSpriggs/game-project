@@ -13,7 +13,7 @@ var noRunningTanks = true;
 function setGameBoxes () {
 //window.onload = function(){
     document.getElementById("areaOne").outerHTML = '<div id="areaOne"><div id="gameTimer">Timer</div></div>';
-    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker">Fewest Number of Mines To Win</div><div class="gameTracker">Number of Tanks Destroyed</div></div>';   
+    document.getElementById("areaTwo").outerHTML = '<div id="areaTwo"><div class="gameTracker" id="tankCount">Number of Tanks</div><div class="gameTracker" id="mineCount"># of Mines To Win</div><div class="gameTracker" id="killCount">Tanks Destroyed</div></div>';   
     document.getElementById("gameSpace").outerHTML = '<div id="gameSpace" class="map"></div>';
     var gameSpace = document.getElementById("gameSpace");
 
@@ -34,22 +34,25 @@ function setGameBoxes () {
     } 
 };
 
-function randomInt() {
+function randomInt(arr) {
     //     random number from either 1-10 / 10s-100 / 91-100 / 1-11-21-31-41...91 to start:
     // (2/3/4/5/6/7/8/9/20/30/40/50/60/70/80/90/11/21/31/41/51/61/71/81/92/93/94/95/96/97/98/99) | [1][10[91][100]
     var startNumber = 0;
+    var startNumberIndex = 0;
     var workingNumberBoolean = false;
 
     while (workingNumberBoolean == false) {
         startNumber = Math.floor(Math.random() * 101);
 
-        for (i=0; i < startArray.length; i++) {
+        for (i=0; i < arr.length; i++) {
 
-            if (startNumber == startArray[i]) {
+            if (startNumber == arr[i]) {
                 workingNumberBoolean = true;
+                startNumberIndex = i;
             }
         }
     }
+    arr.splice(startNumberIndex, 1);
     return startNumber;
     // startNumber is the box number NOT the actual index in the array 
 }
@@ -134,6 +137,9 @@ function runTank(start) {
 
     if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
         killTracker++; 
+        if (killTracker > 0) {
+            document.getElementById("killCount").innerText = killTracker + " destroyed!";        
+        }
     }
     
     ///// Tank Moving Code /////
@@ -189,6 +195,7 @@ function runMovement(start, end, movement, directionVariable) {
 
             if (gameSpaceArray[start].boxType == "hole" || gameSpaceArray[start].boxType == "explosion") {
                 killTracker++; 
+                document.getElementById("killCount").innerText = killTracker + " Destroyed!";
                 //console.log("Box #" + (start + 1) + "| Array Index: " + start + " | Box Type: "  + gameSpaceArray[start].boxType);
             }
         }
@@ -300,7 +307,7 @@ function showResults() {
     } else if (killTracker == 0) {
         score += "Zero Stars";
     }
-    document.getElementById("importantDetails").innerHTML = score;
+    //document.getElementById("importantDetails").innerHTML = score;
 }
 
 function clearForBlue(end, movement) {
@@ -359,8 +366,7 @@ function beginUserTimer() {
 
 function setHint() {
     var minimum = getMinimum();
-    var text =  "Mines: " + minimum;
-    
+    document.getElementById("mineCount").innerText = "Fewest Possible Mines: " + minimum;
 }
 
 function getMinimum() {
@@ -371,8 +377,6 @@ function getMinimum() {
 
     var arr = tankTrackerArray;
 
-    testText = "";
-
     numOfIntersections = 0;
     for(i = 0; i < arr.length; i++) {  
         for(j = i + 1; j < arr.length; j++) {  
@@ -381,6 +385,8 @@ function getMinimum() {
             }
         }
     }
+
+    console.log("number of intersections: " + numOfIntersections);
 
     var oneCount = 0;
     var twoCount = 0;
@@ -428,32 +434,33 @@ function overlayOff() {
 function runGame(difficulty) {
     tankStartPositions = [];
     var tankPaths = 0;  
+    var tempStartArray = startArray;
 
     if (difficulty == "easy") {
-        var firsttankStartPosition = randomInt();
-        var secondtankStartPosition = randomInt();
-        var thirdtankStartPosition = randomInt();
+        var firsttankStartPosition = randomInt(tempStartArray);
+        var secondtankStartPosition = randomInt(tempStartArray);
+        var thirdtankStartPosition = randomInt(tempStartArray);
         tankPaths = 3
         var timeForAllPaths = (tankPaths * 3000) + 1000;
         tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition)        
     }
 
     if (difficulty == "medium") {
-        var firsttankStartPosition = randomInt();
-        var secondtankStartPosition = randomInt();
-        var thirdtankStartPosition = randomInt();
-        var fourthtankStartPosition = randomInt();
+        var firsttankStartPosition = randomInt(tempStartArray);
+        var secondtankStartPosition = randomInt(tempStartArray);
+        var thirdtankStartPosition = randomInt(tempStartArray);
+        var fourthtankStartPosition = randomInt(tempStartArray);
         tankPaths = 4;
         var timeForAllPaths = (tankPaths * 3100) + 1000;
         tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition)        
     }
 
     if (difficulty == "hard") {
-        var firsttankStartPosition = randomInt();
-        var secondtankStartPosition = randomInt();
-        var thirdtankStartPosition = randomInt();
-        var fourthtankStartPosition = randomInt();
-        var fifthtankStartPosition = randomInt();
+        var firsttankStartPosition = randomInt(tempStartArray);
+        var secondtankStartPosition = randomInt(tempStartArray);
+        var thirdtankStartPosition = randomInt(tempStartArray);
+        var fourthtankStartPosition = randomInt(tempStartArray);
+        var fifthtankStartPosition = randomInt(tempStartArray);
         tankPaths = 5;
         var timeForAllPaths = (tankPaths * 3200) + 1000;
         tankStartPositions.push(firsttankStartPosition, secondtankStartPosition, thirdtankStartPosition, fourthtankStartPosition, fifthtankStartPosition)        
