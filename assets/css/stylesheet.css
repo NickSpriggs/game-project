@@ -436,7 +436,7 @@ button {
 }
 
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 375px) {
     #gameSpace {
         height: 230px;
         width: 230px;
@@ -450,7 +450,7 @@ button {
         background-image: url("../images/logoSimple.png");
         background-size: cover;
         background-position: center;
-        height: 290px;
+        height: 250px;
     }
 
     .gameTracker {
