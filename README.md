@@ -3,7 +3,7 @@
 The following project was my attempt to create an online memory game with the tools provided to me in the first two modules of the Code Institute course. 
 This project makes use of HTML, CSS, and Javascript.
 
-[View live project]()
+[View live project](https://nickspriggs.github.io/game-project/)
 
 # UX
 
@@ -47,44 +47,44 @@ strengthen the users memory and attention but also provide them with entertainme
 - Javascript
 
 ## Frameworks, Libraries, Websites & Programs Used
-- 
 
 - [W3schools](https://www.w3schools.com/): This site provided many useful templates in their lessons.
 
-- [Photoshop](https://photoshop.com/en): This was used to design the games logo. 
-
-- [BestWallpapers] (https://besthqwallpapers.com) This was used to create the camoflouge background.
-
-- [iStockPhoto](https://istockphoto.com): This was were I obtained the game space background.
-
-- [OpenGameArt](https://opengameart.org/): Provided the assets I used to make the tanks. 
+- [Photoshop](https://photoshop.com/en): This was used to design the games logo, assets, and even wireframes. 
 
 - [GitHub](https://github.com/): GitHub was used to launch the program.
 
 
 
 # Testing
-This project utilized the W3C Markup Validator and W3C CSS Validator for testing the competency of the code on each page.
+W3C Markup Validator and W3C CSS Validator were used to test the code. 
 
 - WSC Markup - [Link to site](https://validator.w3.org/)
     - Index.html - <a href="assets/PDFs/Index - Success.pdf"> Results PDF </a>
-    - Exeprience.html - <a href="assets/PDFs/Experience - Success.pdf"> Results PDF</a>
-    - Portfolio.html - <a href="assets/PDFs/Portfolio - Success.pdf">Results PDF</a>
-    - Contact.html - <a href="assets/PDFs/Contact - Success.pdf">Results PDF </a>
 - W3C CSS - [Link to site](https://jigsaw.w3.org/css-validator/#validate_by_input)
     - Style.css - <a href="assets/PDFs/CSS - Success.pdf">Results PDF </a>
 
 ## Testing User Stories
 
--   #### First Time Visitor Goals
-    1. As a First Time Visitor, I'd like to get a comprehensive overview of who site the belongs to.
-        - The home page immediate introduces the reader to the site owner and provides clear direction to the other pages.
-    2. As a First Time Visitor, I want to easily find different information about the users work history and experience.    
-        -  All the links and external elements function clearly and are unambiguious in their purpose.
+-  #### First Time User Goals
+
+    1. As a First Time User, I want to easily find different information about how exactly the game is played.
+        - Landing page has a menu with instructions on how to play.
+    2. As a First Time User, I reasonable control over the difficulty.
+        - All users are prompted to select the level of diffuclty they would like to play on.
+    3. As a First Time User, I would like to know how well I've down.  
+        - Every game ends with alert telling the user how the performed. In addition, the game also provides live updates on what is happening as you play.
+
 
 ## Further Testing
 
-- Project was tested in Chrome, Firefox, and Safari browsers.
+- Tested using Chrome, Firefox, and Safari.
+
+# Known Bugs
+
+- On some devices the game board scales awkwardly which can negatively impact the user's experience and performance.
+
+- The tanks do not always spawn randomly and occasionally the same one or two rows will be ones utilized. This can make gameplay unchallenging.
 
 # Deployment
 
@@ -104,12 +104,21 @@ In order to make a clone follow the previous section up to step #2:
 # Credits
 
 - Content
-    - Text was written by the developer.
+    - Developer wrote all the text.
 
 - Media
-    - Background image was taken from [Arizon Commerical Professional Facebook](https://www.facebook.com/ArizonaCommercialProfessionals/) page
-    - Main portrait image was created by the developer.
+    - [BestWallpapers] (https://besthqwallpapers.com/textures/summer-camouflage-texture-dark-green-camouflage-texture-dark-green-camouflage-background-camouflage-texture-138419) This was used to create the camoflouge background.
+
+    - [iStockPhoto](https://www.istockphoto.com/vector/top-view-of-the-city-with-a-desert-gm922427730-253211217): This was were I obtained the game space background.
+
+    - [OpenGameArt](https://opengameart.org/content/top-down-painted-tanks): Provided the assets I used to make the tanks.    
+
+    - [DeviantArt](deviantart.com/toraiinxamikaze/art/Halo-Reach-Landmine-243453712): Provided the landmines.
+
+    - [NeedPix](needpix.com/photo/950289/comic-blast-blast-effect-explosion-effect-comic-blast-effect-comic-explosion-effect-boom-bang-cartoon): Provided the explosion effects.
+
+    - [ClipartKey](clipartkey.com/view/ombTxT_popart-cartoon-comicbook-crash-textstickers-text-onomatopoeia-crash/.png): Provided the crash effects.
 
 - Acknowledgements
-    - Thank you to [Pascal Vangemert](http://www.pascalvangemert.nl/#/profile) for providing asssets.
+    - Thank you to those mentioned in the media section; iStockPhoto, OpenGameArt, BestWallpapers, NeedPix, and ClipartKey.
     - Thank you to Code Institute!
