@@ -13,6 +13,9 @@ strengthen the users memory and attention but also provide them with entertainme
 - Have a gameplay area separate from the main menu to get engage them undistracted.
 - Have a results screen that shows how well they performed.
 
+* The the rules of the game are as follows. The user watches a series of tanks move across a 10 by 10 grid. After they finish their first run through the player has ten seconds to place mines in the paths that they remember.
+Ideally the paths will intersect, forcing the user to try and remember where the was so that they can eliminate the most number of tanks with the fewest number of mines.  
+
 
 ## User Stories
 
