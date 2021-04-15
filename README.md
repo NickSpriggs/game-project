@@ -67,7 +67,7 @@ W3C Markup Validator, W3C CSS Validator, and JSHint were used to test the code.
     - Index.html - <a href="assets/PDF/validation-HTML.pdf"> Results PDF </a>
 - W3C CSS - [Link to site](https://jigsaw.w3.org/css-validator/#validate_by_input)
     - Stylesheet.css - <a href="assets/PDF/validation-CSS.pdf">Results PDF </a>
-- JSHint - [https://jshint.com/]
+- JSHint - [Link to site](https://jshint.com/)
 
 
 ## Testing User Stories
